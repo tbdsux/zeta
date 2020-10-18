@@ -1,9 +1,10 @@
+#prettier-ignore
 ---
 development:
   dialect: postgres
-  database: zeta_development
+  database: zeta_dev
   user: postgres
-  password: postgres
+  password:
   host: 127.0.0.1
   pool: 5
 
@@ -12,3 +13,5 @@ test:
 
 production:
   url: {{envOr "DATABASE_URL" "postgres://postgres:postgres@127.0.0.1:5432/zeta_production?sslmode=disable"}}
+
+
