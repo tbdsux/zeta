@@ -11,3 +11,13 @@ import (
 func HomeHandler(c buffalo.Context) error {
 	return c.Render(http.StatusOK, r.HTML("index.html"))
 }
+
+// LoginHandler => login front view
+func LoginHandler(c buffalo.Context) error {
+	return c.Render(http.StatusOK, r.HTML("login.html"))
+}
+
+// RegisterHandler => register front view
+func RegisterHandler(c buffalo.Context) error {
+	return c.Render(http.StatusOK, r.HTML("register.html"))
+}

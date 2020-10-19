@@ -13,6 +13,11 @@
     <link rel="icon" href="/assets/images/favicon.ico">
   </head>
   <body class="antialiased w-full h-full">
+    <!-- header section -->
+<%= partial("templates/front/_header.html") %>
+
       <%= yield %>
+      <!-- footer -->
+<%= partial("templates/front/_footer.html") %>
   </body>
 </html>
