@@ -60,8 +60,14 @@ func App() *buffalo.App {
 		app.Use(translations())
 
 		app.GET("/", HomeHandler)
-		app.GET("/login", LoginHandler)
-		app.GET("/register", RegisterHandler)
+
+		app.GET("/users/login", UsersLogin)
+		app.GET("/users/register", UsersRegister)
+		
+		app.GET("/dash", DashIndex)
+		app.GET("/dash/collections", DashCollections)
+		app.GET("/dash/account", DashAccount)
+		app.GET("/dash/browse", DashBrowse)
 
 		app.ServeFiles("/", assetsBox) // serve files from the public directory
 	}
