@@ -1,0 +1,74 @@
+<!-- dashboard header -->
+<header class="bg-purple-700">
+  <div
+    class="w-11/12 mx-auto py-4 flex items-center justify-between text-white"
+  >
+    <!-- logo -->
+    <h1 class="font-extrabold tracking-wide mx-2">zeta</h1>
+    <!-- main nav -->
+    <ul class="flex">
+      <li>
+        <a
+          href="#"
+          class="font-light text-sm p-4 hover:bg-purple-800 rounded-md"
+        >
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+          class="font-light text-sm p-4 hover:bg-purple-800 rounded-md"
+        >
+          Collections
+        </a>
+      </li>
+      <li>
+        <a
+          href="#"
+          class="font-light text-sm p-4 hover:bg-purple-800 rounded-md"
+        >
+          Browse
+        </a>
+      </li>
+    </ul>
+    <!-- account -->
+    <div class="relative" x-data="{ open: false }">
+      <div class="flex items-center">
+        <button
+          @click="open = true"
+          :class="{'bg-purple-600':open}"
+          type="button"
+          class="focus:outline-none text-sm hover:bg-purple-800 hover:underline inline-flex items-center px-4 border border-purple-600 rounded py-1"
+        >
+          <img src="/profile.png" alt="" class="w-8 h-8" />
+          <span class="ml-2 mr-1">username123</span>
+          <svg
+            class="fill-current h-4 w-4"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+            />
+          </svg>
+        </button>
+      </div>
+      <ul
+        x-show="open"
+        @click.away="open=false"
+        class="absolute bg-purple-900 w-full text-sm mt-1 font-light py-3 rounded text-center"
+      >
+        <li class="py-1">
+          <a href="#" class="opacity-75 hover:opacity-100">Profile</a>
+        </li>
+        <li class="py-1">
+          <a href="#" class="opacity-75 hover:opacity-100">Settings</a>
+        </li>
+        <li class="py-1">
+          <a href="#" class="opacity-75 hover:opacity-100">Sign Out</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
