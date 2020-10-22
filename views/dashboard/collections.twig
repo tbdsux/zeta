@@ -1,0 +1,66 @@
+{% extends './dash.twig' %}
+
+{% block title %}
+  My Collection
+{% endblock %}
+
+{% block content %}
+  <div class="w-5/6 mx-auto py-6">
+    <h1 class="mb-8 uppercase font-bold text-sm">
+      Collections
+    </h1>
+    <!-- group collections -->
+    <div>
+      <h3 class="font-light">
+        Movies
+      </h3>
+      <hr />
+      <div class="w-11/12 mx-auto py-6 grid grid-cols-2 gap-4">
+        <!-- items -->
+        <a href="#"
+          type="button"
+          class="border-2 border-purple-600 bg-purple-600 rounded group relative hover:bg-purple-700">
+          <!-- buttons -->
+          <div class="w-full h-full bg-bland absolute hidden group-hover:flex items-center justify-center">
+            <div class="flex flex-col">
+              <button class="bg-red-600 text-gray-300 hover:bg-red-700 my-1 font-light py-2 px-4 text-sm uppercase rounded-full">
+                Watch Later
+              </button>
+              <button class="bg-orange-600 text-white hover:bg-orange-700 my-1 py-2 px-4 font-light text-sm uppercase rounded-full">
+                Watched
+              </button>
+            </div>
+          </div>
+          <img src="/collections/movies/movie1.jpg"
+            alt=""
+            class="h-64 object-cover w-full" />
+          <h4 class="text-center p-2 text-sm font-bold tracking-wide text-gray-300">
+            A Whisker Away (2020)
+          </h4>
+        </a>
+        <!-- items -->
+        <a href="#"
+          type="button"
+          class="border-2 border-purple-600 bg-purple-600 rounded group relative hover:bg-purple-700">
+          <!-- buttons -->
+          <div class="w-full h-full bg-bland absolute hidden group-hover:flex items-center justify-center">
+            <div class="flex flex-col">
+              <button class="bg-red-600 text-gray-300 hover:bg-red-700 my-1 font-light py-2 px-4 text-sm uppercase rounded-full">
+                Watch Later
+              </button>
+              <button class="bg-orange-600 text-white hover:bg-orange-700 my-1 py-2 px-4 font-light text-sm uppercase rounded-full">
+                Watched
+              </button>
+            </div>
+          </div>
+          <img src="/collections/movies/movie2.jpg"
+            alt=""
+            class="h-64 object-cover w-full" />
+          <h4 class="text-center p-2 text-sm font-bold tracking-wide text-gray-300">
+            Weathering With You (2019)
+          </h4>
+        </a>
+      </div>
+    </div>
+  </div>
+{% endblock %}
