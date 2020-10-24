@@ -1,0 +1,35 @@
+{% extends 'dashboard.html' %}
+
+{% block title %}
+  Browse Stuffs
+{% endblock title %}
+
+{% block content %}
+  <div class="py-10 w-11/12 mx-auto">
+    <div class="text-center px-4 py-8 shadow-lg">
+      <h1 class="text-3xl font-bold text-purple-600">
+        Browse New STUFF
+      </h1>
+      <p class="font-light tracking-wide">
+        Search for new stuff to add to your collections.
+      </p>
+      <div class="pt-6">
+        <form action="#">
+          <div class="flex flex-col">
+            <label for="search-input" class="font-light tracking-wide">
+              Search Input
+            </label>
+            <input type="text"
+              placeholder="Enter something to search..."
+              class="text-center text-lg tracking-wide py-3 border-2 px-4 rounded-md focus:outline-none focus:border-purple-600 focus:text-purple-600 w-full" />
+          </div>
+          <div class="w-1/2 mx-auto flex flex-col">
+            <input type="submit"
+              value="Search"
+              class="my-1 py-2 rounded-full bg-purple-500 text-white hover:bg-purple-700 cursor-pointer" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
