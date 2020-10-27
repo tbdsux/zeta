@@ -1,0 +1,128 @@
+{% extends 'main.html' %} 
+
+{% block title %} 
+Create New Account 
+{% endblock title%} 
+
+{% block content %}
+<div class="py-24 w-5/6 mx-auto">
+    <!-- main register form -->
+    <div class="w-full">
+        <h4 class="text-center text-lg underline font-bold">
+        Create a new Account
+        </h4>
+
+        {% if form.non_field_errors %}
+        <div class="bg-orange-500 p-1 text-center text-sm tracking-wide rounded my-2 text-white">
+            <p>{{form.non_field_errors}}</p>
+        </div>
+        {% endif %}
+        
+        <form action="" method="POST" autocomplete="off" class="user-form">
+            {% csrf_token %}
+            <div class="flex flex-col py-1">
+                <label class="tracking-wide pt-1 font-light" for="uname">
+                {{form.username.label}}
+                </label>
+                {{form.username}}
+                
+                {% if form.username.errors %}
+                <div class="py-1">
+                    <ul class="text-sm text-red-600">
+                        {% for error in form.username.errors %}
+                        <li class="pl-2">
+                            <p>{{ error }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            <div class="flex flex-col py-1">
+                <label class="tracking-wide pt-1 font-light" for="uname">
+                {{form.email.label}}
+                </label>
+                {{form.email}}
+
+                {% if form.email.errors %}
+                <div class="py-1">
+                    <ul class="text-sm text-red-600">
+                        {% for error in form.email.errors %}
+                        <li class="pl-2">
+                            <p>{{ error }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            <div class="flex flex-col py-1">
+                <label class="tracking-wide pt-1 font-light" for="passwd">
+                {{form.password1.label}}
+                </label>
+                {{form.password1}}
+
+                {% if form.password1.errors %}
+                <div class="py-1">
+                    <ul class="text-sm text-red-600">
+                        {% for error in form.password1.errors %}
+                        <li class="pl-2">
+                            <p>{{ error }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            <div class="flex flex-col py-1">
+                <label class="tracking-wide pt-1 font-light" for="passwd">
+                Confirm Password
+                </label>
+                {{form.password2}}
+
+                {% if form.password2.errors %}
+                <div class="py-1">
+                    <ul class="text-sm text-red-600">
+                        {% for error in form.password2.errors %}
+                        <li class="pl-2">
+                            <p>{{ error }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+            <div class="flex items-center py-1">
+                {{form.agree}}
+                <span class="pl-1 font-light text-sm tracking-wide">
+                I agree to the
+                <a href="#" class="underline">Terms and Agreements</a>
+                </span>
+            </div>
+            <div class="flex justify-center py-2">
+                <input
+                type="submit"
+                value="Register"
+                class="py-2 px-10 text-sm uppercase tracking-wide font-bold bg-purple-500 hover:bg-purple-700 cursor-pointer text-white rounded"
+                />
+            </div>
+        </form>
+    </div>
+
+    <hr class="my-8" />
+
+    <!-- login account button -->
+    <div class="flex items-center justify-center">
+        <h4 class="text-center font-light tracking-wide">
+        Already have an account?
+        </h4>
+        <a
+            href="{% url 'login' %}"
+            type="button"
+            class="pl-2 uppercase text-purple-700 hover:underline font-bold"
+            >
+        Login
+        </a>
+    </div>
+</div>
+{% endblock content %}

@@ -2,4 +2,25 @@
 
 @import 'tailwindcss/components';
 
+.user-form input{
+    @apply py-2 px-3 border-2 rounded-md outline-none font-light;
+}
+
+.user-form input:focus{
+    @apply border-purple-700;
+}
+
+.success{
+    @apply bg-green-500;
+}
+.warning{
+    @apply bg-yellow-500;
+}
+.info{
+    @apply bg-blue-500;
+}
+.error{
+    @apply bg-red-500;
+}
+
 @import 'tailwindcss/utilities';

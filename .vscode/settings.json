@@ -11,5 +11,6 @@
   },
   "html.format.enable": true,
   "python.formatting.provider": "black",
-  "editor.defaultFormatter": "vscode.python"
+  "editor.defaultFormatter": "ms-python.python",
+  "python.formatting.blackPath": "/home/theboringdude/Desktop/zeta/venv/bin/black"
 }

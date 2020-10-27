@@ -30,7 +30,7 @@
         <ul class="flex">
           <li>
             <a
-              href="{% url 'index' %}"
+              href="{% url 'dash' %}"
               class="font-light text-sm p-4 hover:bg-purple-800 rounded-md"
             >
               Dashboard
@@ -63,7 +63,7 @@
               class="focus:outline-none text-sm hover:bg-purple-800 hover:underline inline-flex items-center px-4 border border-purple-600 rounded py-1"
             >
               <img src="{% static 'profile.png' %}" alt="" class="w-8 h-8" />
-              <span class="ml-2 mr-1">username123</span>
+              <span class="ml-2 mr-1">{{user.username}}</span>
               <svg
                 class="fill-current h-4 w-4"
                 xmlns="http://www.w3.org/2000/svg"
@@ -81,13 +81,13 @@
             class="absolute bg-purple-900 w-full text-sm mt-1 font-light py-3 rounded text-center"
           >
             <li class="py-1">
-              <a href="#" class="opacity-75 hover:opacity-100">Profile</a>
+              <a href="{% url 'profile' %}" class="opacity-75 hover:opacity-100">Profile</a>
             </li>
             <li class="py-1">
               <a href="#" class="opacity-75 hover:opacity-100">Settings</a>
             </li>
             <li class="py-1">
-              <a href="#" class="opacity-75 hover:opacity-100">Sign Out</a>
+              <a href="{% url 'logout' %}" class="opacity-75 hover:opacity-100">Sign Out</a>
             </li>
           </ul>
         </div>
