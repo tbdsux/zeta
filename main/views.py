@@ -2,6 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .forms import RegisterForm, LoginForm
 from django.contrib import messages
+from dashboard.models import UserProfile
 
 # main index
 def index(request):
@@ -17,7 +18,13 @@ def Register(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
         if form.is_valid():
-            form.save()
+            # save the login information
+            user = form.save()
+            # generate and save a UserProfile
+            profile = UserProfile(user=user)
+            profile.save()
+
+            # show the success message
             messages.success(request, "Your account has been successfully created!")
             return redirect("login")
 

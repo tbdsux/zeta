@@ -18,7 +18,40 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.1/dist/alpine.min.js"
       defer></script>
   </head>
-  <body class="antialiased w-full h-full">
+  <body class="antialiased w-full h-full" x-data="{ profile: false, open: false, add_col: false }">
+
+    <!-- user profile modal -->
+    <div class="fixed bg-bland h-screen w-full z-50 flex items-center justify-center" x-show="profile" >
+      <div class="h-64 bg-white md:w-2/3 lg:w-1/2 mx-auto rounded p-4 relative" @click.away="profile=false">
+        <p class="font-light absolute top-0 left-0 mt-2 ml-2 opacity-75">User Profile | zeta</p>
+        <div class="absolute top-0 right-0 mt-2 mr-2 inline-flex items-center"><div class="w-4 h-4 bg-green-500 rounded-full"></div> <p class="font-light ml-1 text-green-500">active</p></div>
+        <div class="flex items-center justify-center px-4 h-full">
+          <!-- user image -->
+          <div class="relative h-32 w-32">
+            <img src="{% static 'profiles/profile.png' %}" alt="" class="absolute object-cover rounded-full w-full h-full">
+          </div>
+          <!-- user info -->
+          <div class="ml-4">
+            <h1 class="text-3xl font-black text-purple-600 tracking-wide">{{user.username}}</h1>
+            <ul class="">
+              <li class="my-1">
+                <h4 class="text-lg tracking-wide text-gray-600">Total Collections</h4>
+                <p class="font-black text-lg ml-3 text-gray-800">12</p>
+              </li>
+              <li class="my-1">
+                <h4 class="text-lg tracking-wide text-gray-600">Date Joined</h4>
+                <p class="font-black text-lg ml-3 text-gray-800">{{user.date_joined}}</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% block modal %}
+    <!-- modals container from sub_templates -->
+    {% endblock modal %}
+
     <!-- dashboard header -->
     <header class="bg-purple-700">
       <div
@@ -54,15 +87,15 @@
           </li>
         </ul>
         <!-- account -->
-        <div class="relative" x-data="{ open: false }">
+        <div class="relative">
           <div class="flex items-center">
             <button
               @click="open = true"
               :class="{'bg-purple-600':open}"
               type="button"
-              class="focus:outline-none text-sm hover:bg-purple-800 hover:underline inline-flex items-center px-4 border border-purple-600 rounded py-1"
+              class="focus:outline-none z-40 text-sm hover:bg-purple-800 hover:underline inline-flex items-center px-4 border border-purple-600 rounded py-1"
             >
-              <img src="{% static 'profile.png' %}" alt="" class="w-8 h-8" />
+              <img src="{% static 'profiles/profile.png' %}" alt="" class="w-8 h-8" />
               <span class="ml-2 mr-1">{{user.username}}</span>
               <svg
                 class="fill-current h-4 w-4"
@@ -81,7 +114,7 @@
             class="absolute bg-purple-900 w-full text-sm mt-1 font-light py-3 rounded text-center"
           >
             <li class="py-1">
-              <a href="{% url 'profile' %}" class="opacity-75 hover:opacity-100">Profile</a>
+              <button @click="profile=true" class="opacity-75 hover:opacity-100">Profile</button>
             </li>
             <li class="py-1">
               <a href="#" class="opacity-75 hover:opacity-100">Settings</a>

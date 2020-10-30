@@ -10,20 +10,23 @@
   <div class="w-5/6 mx-auto py-6">
     <div class="mb-8 flex items-center justify-between">
       <h1 class="uppercase font-bold text-sm">Collections</h1>
-      <button class="border border-purple-600 py-1 px-3 text-sm lowercase tracking-wide rounded text-purple-600 hover:text-white hover:bg-purple-600">Add New</button>
+      <button @click="add_col=true" class="border border-purple-600 py-1 px-3 text-sm lowercase tracking-wide rounded text-purple-600 hover:text-white hover:bg-purple-600">Add New</button>
     </div>
     <!-- group collections -->
     <div>
+      <div class="bg-teal-600">
+        collection name
+      </div>
+    </div>
+    <!-- <div>
       <h3 class="font-light">
         Movies
       </h3>
       <hr />
       <div class="w-11/12 mx-auto py-6 grid grid-cols-2 gap-4">
-        <!-- items -->
         <a href="#"
           type="button"
           class="border-2 border-purple-600 bg-purple-600 rounded group relative hover:bg-purple-700">
-          <!-- buttons -->
           <div class="w-full h-full bg-bland absolute hidden group-hover:flex items-center justify-center">
             <div class="flex flex-col">
               <button class="bg-red-600 text-gray-300 hover:bg-red-700 my-1 font-light py-2 px-4 text-sm uppercase rounded-full">
@@ -41,11 +44,9 @@
             A Whisker Away (2020)
           </h4>
         </a>
-        <!-- items -->
         <a href="#"
           type="button"
           class="border-2 border-purple-600 bg-purple-600 rounded group relative hover:bg-purple-700">
-          <!-- buttons -->
           <div class="w-full h-full bg-bland absolute hidden group-hover:flex items-center justify-center">
             <div class="flex flex-col">
               <button class="bg-red-600 text-gray-300 hover:bg-red-700 my-1 font-light py-2 px-4 text-sm uppercase rounded-full">
@@ -64,6 +65,24 @@
           </h4>
         </a>
       </div>
-    </div>
+    </div> -->
   </div>
 {% endblock content %}
+
+{% block modal %}
+  <div class="fixed bg-bland h-screen w-full z-50 flex items-center justify-center" x-show="add_col">
+    <div class="bg-white w-1/2 mx-auto h-48 rounded-md flex items-center justify-center" @click.away="add_col=false">
+      <div class="w-4/5">
+        <h3 class="mb-3 text-lg text-center text-gray-800">Add New Collection</h3>
+        <form action="">
+          <div class="flex flex-col w-full my-1">
+            <input type="text" class="py-2 rounded-full text-center text-lg border-2 font-light tracking-wide focus:outline-none focus:border-purple-600" placeholder="What should be the name of your collection?">
+          </div>
+          <div class="flex flex-col w-1/2 mx-auto my-1">
+            <input type="submit" value="Create" class="py-2 rounded-full bg-purple-500 text-white hover:bg-purple-700 cursor-pointer">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock modal %}
