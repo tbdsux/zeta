@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-import os
-
+from nanoid import generate
 
 
 class UserProfile(models.Model):
@@ -31,7 +30,9 @@ class Stuff(models.Model):
 
 # Collections
 class Collections(models.Model):
-    name = models.CharField(max_length=15)
+    name = models.CharField(max_length=10)
+    description = models.CharField(max_length=30, blank=True)
+    slug = models.SlugField(max_length=6, default=generate(size=6), unique=True, editable=False)
     stuffs = models.ManyToManyField(Stuff, through="Inclution")
 
     def __str__(self) -> str:
@@ -43,5 +44,5 @@ class Inclution(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     collection = models.ForeignKey(Collections, on_delete=models.CASCADE)
     stuff = models.ForeignKey(Stuff, on_delete=models.CASCADE)
-    date_added = models.DateField()
+    date_added = models.DateField(auto_now=True)
     added_to = models.CharField(max_length=5)
