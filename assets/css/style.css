@@ -656,6 +656,32 @@ video {
   background-color: rgba(245, 101, 101, var(--bg-opacity));
 }
 
+.add-collection input{
+  border-width: 2px;
+  font-weight: 300;
+  letter-spacing: 0.025em;
+}
+
+.add-collection input:focus{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --border-opacity: 1;
+  border-color: #805ad5;
+  border-color: rgba(128, 90, 213, var(--border-opacity));
+}
+
+.add-collection-main input{
+  padding: 0.5rem;
+  border-radius: 9999px;
+  text-align: center;
+  font-size: 1.125rem;
+}
+
+.add-collection-sub input{
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
 .space-y-0 > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--space-y-reverse)));

@@ -5,7 +5,6 @@
 .user-form input{
     @apply py-2 px-3 border-2 rounded-md outline-none font-light;
 }
-
 .user-form input:focus{
     @apply border-purple-700;
 }
@@ -22,5 +21,19 @@
 .error{
     @apply bg-red-500;
 }
+
+.add-collection input{
+    @apply border-2 font-light tracking-wide;
+}
+.add-collection input:focus{
+    @apply outline-none border-purple-600;
+}
+.add-collection-main input{
+    @apply p-2 rounded-full text-center text-lg;
+}
+.add-collection-sub input{
+    @apply p-2 rounded;
+}
+
 
 @import 'tailwindcss/utilities';
