@@ -22,14 +22,21 @@
     </div>
     {% endif %}
 
+    {% if collections %}
     <!-- group collections -->
-    <div>
+    <div class="mt-4 grid grid-cols-2 gap-4">
       {% for collection in collections %}
-      <div class="bg-teal-600 my-1">
-        {{collection.name}}
-      </div>
+      <a href="{{collection.slug}}" type="button" class="bg-teal-600 p-4 h-32 rounded text-white">
+        <h2 class="text-2xl font-bold tracking-wide">{{collection.name}}</h2>
+        <p class="text-lg font-light text-gray-300 ml-4">{{collection.description}}</p>
+      </a>
       {% endfor %}
     </div>
+    {% else %}
+      <div class="mt-4 text-center">
+        <p class="text-lg tracking-wide font-light">Yay! Nothing to see here, you can make a collection to add...</p>
+      </div>
+    {% endif %}
     <!-- <div>
       <h3 class="font-light">
         Movies

@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
-from django.contrib import messages
 from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect
 from django.views import View
-from .forms import AddCollectionForm
-from .models import Collections
+from django.contrib import messages
+
+from dashboard.forms.collections import AddCollectionForm
+from dashboard.models.collections import Collections
+
+from nanoid import generate
 
 ## Dashboard > Collections View
 @method_decorator(login_required, name="dispatch")
@@ -13,8 +15,9 @@ class CollectionsView(View):
     form_class = AddCollectionForm
     template_name = "main/collections.html"
 
+    # GET request
     def get(self, request, *args, **kwargs):
-        collections = Collections.objects.all()
+        collections = Collections.objects.order_by("-date_created")
 
         return render(
             request,
@@ -22,40 +25,36 @@ class CollectionsView(View):
             {"form": self.form_class, "collections": collections},
         )
 
+    # generate a slug for the collection
+    def generate_slug(self):
+        slug = generate(size=6)  # generate from nanoid
+
+        # query the slug if it already exists
+        check = Collections.objects.filter(slug=slug)
+        if check:
+            return self.generate_slug()
+
+        # if it does not exist, return the slug
+        return slug
+
+    # POST request
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
 
         if form.is_valid():
+            # generate and get the slug
+            slug = self.generate_slug()
+
             # add new collection to the database
             Collections.objects.create(
                 name=form.cleaned_data["name"],
                 description=form.cleaned_data["description"],
+                slug=slug,
             )
 
             messages.success(request, "Succesfully created new collection!")
             return redirect("collections")
 
 
-# dashboard index
-@login_required()
-def index(request):
-    return render(request, "main/index.html")
-
-
-# dashboard browse
-@login_required()
-def browse(request):
-    return render(request, "main/browse.html")
-
-
-# user profile
-def profile(request):
-    return render(request, "main/profile.html")
-
-
-# user logout
-def Logout(request):
-    logout(request)
-    messages.info(request, "You have successfully logged out.")
-
-    return redirect("login")
+class CollectionsPageView(View):
+    pass

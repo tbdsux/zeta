@@ -1,13 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from nanoid import generate
-
-
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    acc_img = models.ImageField(default="profile.png")
-    date_joined = models.DateField(auto_now=True)
-
 
 # Stuffs model
 class Stuff(models.Model):
@@ -30,10 +22,11 @@ class Stuff(models.Model):
 
 # Collections
 class Collections(models.Model):
-    name = models.CharField(max_length=10)
+    name = models.CharField(max_length=20)
     description = models.CharField(max_length=30, blank=True)
-    slug = models.SlugField(max_length=6, default=generate(size=6), unique=True, editable=False)
+    slug = models.SlugField(max_length=6, unique=True, editable=False)
     stuffs = models.ManyToManyField(Stuff, through="Inclution")
+    date_created = models.DateTimeField(auto_now=True)
 
     def __str__(self) -> str:
         return self.name

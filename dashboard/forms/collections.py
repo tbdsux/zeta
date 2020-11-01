@@ -1,12 +1,12 @@
 from django import forms
 from django.forms import widgets
 from django.db.models import fields
-from .models import Collections
+from dashboard.models.collections import Collections
 
 
 class AddCollectionForm(forms.ModelForm):
     name = forms.CharField(
-        max_length=10,
+        max_length=20,
         required=True,
         widget=widgets.TextInput(
             attrs={"placeholder": "What would you call your collection?"}

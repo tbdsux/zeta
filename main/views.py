@@ -2,7 +2,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from .forms import RegisterForm, LoginForm
 from django.contrib import messages
-from dashboard.models import UserProfile
+from dashboard.models.userprofile import UserProfile
 
 # main index
 def index(request):
