@@ -2,6 +2,7 @@
 
 @import 'tailwindcss/components';
 
+/* user login register form */
 .user-form input{
     @apply py-2 px-3 border-2 rounded-md outline-none font-light;
 }
@@ -9,6 +10,7 @@
     @apply border-purple-700;
 }
 
+/* messages style */
 .success{
     @apply bg-green-500;
 }
@@ -22,6 +24,7 @@
     @apply bg-red-500;
 }
 
+/* new collection form */
 .add-collection input{
     @apply border-2 font-light tracking-wide;
 }
@@ -34,6 +37,21 @@
 .add-collection-sub input{
     @apply p-2 rounded;
 }
+.add-collection select{
+    @apply text-center py-2 rounded px-4 border-2 bg-gray-300;
+}
+.add-collection select:focus{
+    @apply outline-none border-purple-600;
+}
+
+/* browse form */
+.browse-input input{
+    @apply text-center text-lg tracking-wide py-3 border-2 px-4 rounded-md w-full;
+}
+.browse-input input:focus{
+    @apply border-purple-600 text-purple-600 outline-none;
+}
+
 
 
 @import 'tailwindcss/utilities';

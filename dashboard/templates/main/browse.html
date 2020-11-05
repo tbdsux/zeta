@@ -14,14 +14,13 @@
         Search for new stuff to add to your collections.
       </p>
       <div class="pt-6">
-        <form action="#">
-          <div class="flex flex-col">
+        <form action="">
+          {% csrf_token %}
+          <div class="flex flex-col browse-input">
             <label for="search-input" class="font-light tracking-wide">
               Search Input
             </label>
-            <input type="text"
-              placeholder="Enter something to search..."
-              class="text-center text-lg tracking-wide py-3 border-2 px-4 rounded-md focus:outline-none focus:border-purple-600 focus:text-purple-600 w-full" />
+            {{form.query}}
           </div>
           <div class="w-1/2 mx-auto flex flex-col">
             <input type="submit"

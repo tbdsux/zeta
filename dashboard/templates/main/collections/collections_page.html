@@ -1,0 +1,18 @@
+{% extends 'dashboard.html' %}
+
+{% block title %}
+This is the title page
+{% endblock title %}
+
+{% block content %}
+  <div class="w-5/6 mx-auto py-6">
+    <div class="mb-6 mt-3">
+      <h1 class="uppercase font-bold text-sm">Collections <span class="font-light ml-4">| {{collection.slug}}</span></h1>
+    </div>
+
+    <div class="my-4">
+      <h2 class="text-2xl font-black text-purple-600 tracking-wide">{{collection.name}}</h2>
+      <button></button>
+    </div>
+  </div>
+{% endblock content %}
