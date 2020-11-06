@@ -32,3 +32,7 @@ class AddUpdateCollectionForm(forms.ModelForm):
     class Meta:
         model = Collections
         fields = ["name", "description", "type"]
+
+
+class RemoveCollectionsForm(forms.Form):
+    slug = forms.HiddenInput()

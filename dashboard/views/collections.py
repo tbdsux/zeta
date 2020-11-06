@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
 
-from dashboard.forms.collections import AddUpdateCollectionForm
+from dashboard.forms.collections import AddUpdateCollectionForm, RemoveCollectionsForm
 from dashboard.models.collections import Collections
 
 from nanoid import generate
@@ -83,8 +83,37 @@ class CollectionsUpdateView(View):
     template_name = "main/collections/collections_edit.html"
 
     def get(self, request, slug, *args, **kwargs):
-        # get the slug id of the collection
-        return render(request, self.template_name)
+        # query the slug collection
+        collection = Collections.objects.filter(slug=slug).filter(owner=request.owner)
+        if collection:
+            return render(request, self.template_name, {"collection": collection[0]})
+
+
+class CollectionsDeleteView(View):
+    form_class = RemoveCollectionsForm
+    template_name = "main/collections/collections_delete.html"
+
+    def get(self, request, slug, *args, **kwargs):
+        # query the slug id
+        collection = Collections.objects.filter(slug=slug).filter(owner=request.user)
+
+        if collection:
+            return render(request, self.template_name, {"collection": collection[0]})
+
+    def post(self, request, *args, **kwargs):
+        # query and verify the slug
+        check = Collections.objects.filter(slug=request.POST["slug"]).filter(
+            owner=request.user
+        )
+        if check:
+            # remove the collection
+            check.delete()
+
+            # show the success message
+            messages.success(request, f"Successfully removed collection!")
+
+            # redirect back to the collections page
+            return redirect("collections")
 
 
 class CollectionsPageView(View):
