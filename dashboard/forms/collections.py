@@ -3,7 +3,7 @@ from django.forms import widgets
 from dashboard.models.collections import Collections
 
 
-class AddUpdateCollectionForm(forms.ModelForm):
+class AddCollectionForm(forms.ModelForm):
     TYPE_CLASS = (
         ("movie", "Movies"),
         ("series", "Series"),
@@ -34,5 +34,28 @@ class AddUpdateCollectionForm(forms.ModelForm):
         fields = ["name", "description", "type"]
 
 
-class RemoveCollectionsForm(forms.Form):
-    slug = forms.HiddenInput()
+class UpdateCollectionForm(forms.Form):
+    TYPE_CLASS = (
+        ("movie", "Movies"),
+        ("series", "Series"),
+        ("anime", "Anime"),
+        ("book", "Books"),
+        ("manga", "Manga"),
+        ("asian drama", "Asian Drama"),
+    )
+
+    name = forms.CharField(
+        max_length=30,
+        required=False,
+        widget=widgets.TextInput(
+            attrs={"placeholder": "What would you call your collection?"}
+        ),
+    )
+    description = forms.CharField(
+        max_length=30,
+        required=False,
+        widget=widgets.TextInput(
+            attrs={"placeholder": "Enter some short description..."}
+        ),
+    )
+    type = forms.ChoiceField(widget=forms.Select, required=False, choices=TYPE_CLASS)

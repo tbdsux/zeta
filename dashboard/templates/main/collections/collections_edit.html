@@ -1,0 +1,40 @@
+{% extends 'dashboard.html' %}
+
+{% block title %}
+  Edit '{{collection.name}}'
+{% endblock title %}
+
+{% block content %}
+  <div class="flex items-center justify-center">
+    <div class="my-24 w-1/2 p-6 mx-auto shadow-lg">
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg tracking-wide">Update <strong class="text-purple-600">{{collection.name}}</strong></h3>
+        <a href="{% url 'collections' %}" type="button" class="py-2 px-6 text-sm tracking-wide rounded-full bg-gray-200 hover:bg-gray-300 cursor-pointer mx-1">Cancel</a>
+      </div>
+      <!-- update form -->
+      <div class="mt-3">
+        <h2 class="text-2xl text-center font-bold text-purple-600">Update Collection</h2>
+        <form action="" method="POST">
+          {% csrf_token %}
+          <input type="hidden" name="colid" value="{{collection.collection_id}}">
+          <div class="flex flex-col w-full my-1 add-collection add-collection-main">
+            {{form.name}}
+            <p class="text-gray-600 font-light text-center rounded bg-gray-200 py-1">{{collection.name}}</p>
+          </div>
+          <div class="flex items-center justify-center w-3/4 mx-auto mt-2 mb-1 add-collection add-collection-main">
+            <label for="type" class="mr-2 font-light tracking-wide">Classification:</label>
+            {{form.type}}<p class="text-gray-600 font-light text-center rounded bg-gray-200 py-2 ml-1 px-1">{{collection.type}}</p>
+          </div>
+          <div class="flex flex-col w-full my-1 add-collection add-collection-sub">
+            <label for="description" class="text-gray-600 text-sm tracking-wide">Description</label>
+            {{form.description}}
+            <p class="text-gray-600 font-light text-center rounded bg-gray-200 py-1">{{collection.description}}</p>
+          </div>
+          <div class="flex flex-col w-1/2 mx-auto my-1">
+            <input type="submit" value="Create" class="py-2 rounded-full bg-purple-500 text-white hover:bg-purple-700 cursor-pointer">
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

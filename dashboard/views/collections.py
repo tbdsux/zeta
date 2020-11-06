@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
 
-from dashboard.forms.collections import AddUpdateCollectionForm, RemoveCollectionsForm
+from dashboard.forms.collections import AddCollectionForm, UpdateCollectionForm
 from dashboard.models.collections import Collections
 
 from nanoid import generate
@@ -12,7 +12,7 @@ from nanoid import generate
 ## Dashboard > Collections View
 @method_decorator(login_required, name="dispatch")
 class CollectionsView(View):
-    form_class = AddUpdateCollectionForm
+    form_class = AddCollectionForm
     template_name = "main/collections/collections.html"
 
     # GET request
@@ -79,18 +79,45 @@ class CollectionsView(View):
 
 
 class CollectionsUpdateView(View):
-    form_class = AddUpdateCollectionForm
+    form_class = UpdateCollectionForm
     template_name = "main/collections/collections_edit.html"
 
     def get(self, request, slug, *args, **kwargs):
         # query the slug collection
-        collection = Collections.objects.filter(slug=slug).filter(owner=request.owner)
+        collection = Collections.objects.filter(slug=slug).filter(owner=request.user)
         if collection:
-            return render(request, self.template_name, {"collection": collection[0]})
+            return render(
+                request,
+                self.template_name,
+                {"collection": collection[0], "form": self.form_class},
+            )
+
+    def post(self, request, *args, **kwargs):
+        # verify the collection id
+        col = Collections.objects.get(collection_id=request.POST["colid"])
+        if col:
+            # verify the form
+            form = self.form_class(request.POST)
+            if form.is_valid():
+                # update each field
+                if form.cleaned_data["name"]:
+                    col.name = form.cleaned_data["name"]
+                if form.cleaned_data["type"]:
+                    col.type = form.cleaned_data["type"]
+                if form.cleaned_data["description"]:
+                    col.description = form.cleaned_data["description"]
+
+                # update the collection info
+                col.save()
+
+                # success message
+                messages.success(request, "Successfully updated collection!")
+
+                # redirect to the collectons
+                return redirect("collections")
 
 
 class CollectionsDeleteView(View):
-    form_class = RemoveCollectionsForm
     template_name = "main/collections/collections_delete.html"
 
     def get(self, request, slug, *args, **kwargs):
