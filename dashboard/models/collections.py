@@ -39,7 +39,7 @@ class Collections(models.Model):
     )
     collection_id = models.IntegerField(unique=True)
     name = models.CharField(max_length=20)
-    description = models.CharField(max_length=30, blank=True)
+    description = models.CharField(max_length=60, blank=True)
     type = models.CharField(max_length=12, choices=TYPE_CLASS)
     slug = models.SlugField(max_length=7, editable=False)
     stuffs = models.ManyToManyField(Stuff, through="Inclution")

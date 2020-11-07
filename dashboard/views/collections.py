@@ -84,12 +84,21 @@ class CollectionsUpdateView(View):
 
     def get(self, request, slug, *args, **kwargs):
         # query the slug collection
-        collection = Collections.objects.filter(slug=slug).filter(owner=request.user)
+        collection = Collections.objects.filter(slug=slug).filter(owner=request.user)[0]
+
+        # pass values to the form fields
+        form = self.form_class(
+            initial={
+                "name": collection.name,
+                "type": collection.type,
+                "description": collection.description,
+            }
+        )
         if collection:
             return render(
                 request,
                 self.template_name,
-                {"collection": collection[0], "form": self.form_class},
+                {"collection": collection, "form": form},
             )
 
     def post(self, request, *args, **kwargs):

@@ -52,7 +52,7 @@ class UpdateCollectionForm(forms.Form):
         ),
     )
     description = forms.CharField(
-        max_length=30,
+        max_length=60,
         required=False,
         widget=widgets.TextInput(
             attrs={"placeholder": "Enter some short description..."}
