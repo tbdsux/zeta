@@ -1,13 +1,20 @@
+from django.http import request
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib import messages
 
-from dashboard.forms.collections import AddCollectionForm, UpdateCollectionForm
-from dashboard.models.collections import Collections
+from dashboard.forms.collections import (
+    AddCollectionForm,
+    UpdateCollectionForm,
+    AddItemCollection,
+)
+from dashboard.models.collections import Collections, Stuff, Inclution
 
+# utilities
 from nanoid import generate
+from dashboard.utils.browse.movies import Movies
 
 ## Dashboard > Collections View
 @method_decorator(login_required, name="dispatch")
@@ -85,16 +92,16 @@ class CollectionsUpdateView(View):
     def get(self, request, slug, *args, **kwargs):
         # query the slug collection
         collection = Collections.objects.filter(slug=slug).filter(owner=request.user)[0]
-
-        # pass values to the form fields
-        form = self.form_class(
-            initial={
-                "name": collection.name,
-                "type": collection.type,
-                "description": collection.description,
-            }
-        )
         if collection:
+            # pass values to the form fields
+            form = self.form_class(
+                initial={
+                    "name": collection.name,
+                    "type": collection.type,
+                    "description": collection.description,
+                }
+            )
+
             return render(
                 request,
                 self.template_name,
@@ -153,10 +160,84 @@ class CollectionsDeleteView(View):
 
 
 class CollectionsPageView(View):
+    form_class = AddItemCollection
     template_name = "main/collections/collections_page.html"
 
     def get(self, request, slug, *args, **kwargs):
         # get the collection from the slug
         collection = Collections.objects.filter(owner=request.user).get(slug=slug)
 
-        return render(request, self.template_name, {"collection": collection})
+        if collection:
+            # pass initial values to hidden inputs
+            form = self.form_class(
+                initial={
+                    "slugid": collection.slug,
+                    "type": collection.type.replace(" ", "-"),
+                }
+            )
+
+            return render(
+                request,
+                self.template_name,
+                {
+                    "collection": collection,
+                    "form": form,
+                    "items": collection.stuffs.order_by("-id"),
+                },
+            )
+
+    def post(self, request, *args, **kwargs):
+        # get the post data
+        form = self.form_class(request.POST)
+
+        if form.is_valid():
+            return redirect(
+                "collections-add-item",
+                slug=form.cleaned_data["slugid"],
+                type=form.cleaned_data["type"],
+                query=form.cleaned_data["query"],
+            )
+
+
+class CollectionsFindItemView(View):
+    template_name = {"movie": "main/collections/add-item-movies.html"}
+
+    def get(self, request, slug, type, query, *args, **kwargs):
+        if type == "movie":
+            # search the movies with the api
+            find = Movies()
+            results = find.search_movies(query)
+
+            # render the results
+            return render(
+                request,
+                self.template_name["movie"],
+                {"slug": slug, "query": query, "results": results, "type": "movie"},
+            )
+
+    def post(self, request, *args, **kwargs):
+        # get and verify first the slugid
+        slug = request.POST["slugid"]
+        collection = Collections.objects.filter(slug=slug).filter(owner=request.user)[0]
+
+        if collection:
+            # create stuff item
+            item = Stuff.objects.create(
+                title=request.POST["title"],
+                img_src=request.POST["img"],
+                classification=request.POST["type"],
+            )
+
+            # add to inclusion
+            Inclution.objects.create(
+                user=request.user,
+                collection=collection,
+                stuff=item,
+                added_to=slug,
+            )
+
+            # add success message
+            messages.success(request, "Successfully added new item!")
+
+            # redirect back to the collections page
+            return redirect("collections-page", slug=slug)

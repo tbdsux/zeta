@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "python3 manage.py runserver",
-    "dev": "NODE_ENV=development concurrently 'npm run start' 'postcss tailwind.css -o assets/css/style.css --watch' 'browser-sync start --proxy \"localhost:8000\" --files \"**/*.*\"'"
+    "dev": "NODE_ENV=development concurrently 'npm run start' 'postcss tailwind.css -o assets/css/style.css --watch' 'browser-sync start --proxy \"localhost:8000\" --files \"**/*.*, !node_modules/**, !venv/**\"'"
   },
   "keywords": [],
   "author": "",

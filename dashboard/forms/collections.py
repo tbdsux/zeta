@@ -59,3 +59,15 @@ class UpdateCollectionForm(forms.Form):
         ),
     )
     type = forms.ChoiceField(widget=forms.Select, required=False, choices=TYPE_CLASS)
+
+
+class AddItemCollection(forms.Form):
+    slugid = forms.CharField(widget=forms.HiddenInput)
+    type = forms.CharField(widget=forms.HiddenInput)
+    query = forms.CharField(
+        max_length=50,
+        required=True,
+        widget=widgets.TextInput(
+            attrs={"placeholder": "Enter the name of the item to search...."}
+        ),
+    )

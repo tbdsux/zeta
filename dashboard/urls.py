@@ -6,6 +6,7 @@ from .views.collections import (
     CollectionsPageView,
     CollectionsUpdateView,
     CollectionsDeleteView,
+    CollectionsFindItemView,
 )
 from .views.browse import BrowseView, BrowseResultsView
 from .views.account import AccountSettingsView
@@ -27,6 +28,11 @@ urlpatterns = [
         "collections/<slug:slug>/delete",
         CollectionsDeleteView.as_view(),
         name="collections-delete",
+    ),
+    path(
+        "collections/<slug:slug>/add/find/<str:type>/<str:query>",
+        CollectionsFindItemView.as_view(),
+        name="collections-add-item",
     ),
     path("browse/", BrowseView.as_view(), name="browse"),
     path("browse/q/<str:query>", BrowseResultsView.as_view()),

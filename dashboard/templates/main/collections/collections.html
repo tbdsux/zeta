@@ -17,7 +17,7 @@
     <!-- messages -->
     <div class="mb-4">
       {% for message in messages %}
-        <p class="p-1 text-white rounded text-sm bg-green-500 text-center font-light tracking-wide my-1">{{message}}</p>
+        <p class="p-1 text-white rounded text-sm {{message.tags}} text-center font-light tracking-wide my-1">{{message}}</p>
       {% endfor %}
     </div>
     {% endif %}

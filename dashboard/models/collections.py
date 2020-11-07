@@ -14,10 +14,8 @@ class Stuff(models.Model):
     )
 
     title = models.CharField(max_length=50)
-    synopsis = models.TextField()
     img_src = models.CharField(max_length=100)
     classification = models.CharField(max_length=12, choices=ITEM_CLASS)
-    web_id = models.CharField(max_length=50, blank=True)
 
     def __str__(self) -> str:
         return self.title
