@@ -17,6 +17,7 @@ from nanoid import generate
 from dashboard.utils.browse.movies import Movies
 from dashboard.utils.browse.series import Series
 from dashboard.utils.browse.anime import Anime
+from dashboard.utils.browse.manga import Manga
 
 ## Dashboard > Collections View
 @method_decorator(login_required, name="dispatch")
@@ -202,10 +203,12 @@ class CollectionsPageView(View):
 
 
 class CollectionsFindItemView(View):
+    form_class = AddItemCollection
     template_name = {
         "movie": "main/collections/add-item-movies.html",
         "series": "main/collections/add-item-series.html",
         "anime": "main/collections/add-item-anime.html",
+        "manga": "main/collections/add-item-manga.html",
     }
 
     def get(self, request, slug, type, query, *args, **kwargs):
@@ -246,6 +249,19 @@ class CollectionsFindItemView(View):
                 request,
                 self.template_name["anime"],
                 {"slug": slug, "query": query, "results": results, "type": "anime"},
+            )
+
+        # manga collections
+        elif type == "manga":
+            # search the anime with the api
+            find = Manga()
+            results = find.search_manga(query)
+
+            # render the results
+            return render(
+                request,
+                self.template_name["manga"],
+                {"slug": slug, "query": query, "results": results, "type": "manga"},
             )
 
     def post(self, request, *args, **kwargs):
