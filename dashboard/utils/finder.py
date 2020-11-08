@@ -13,3 +13,4 @@ class Finder:
         self.tmdb_series_website = f"https://api.themoviedb.org/3/search/tv?api_key={os.getenv('TMDB_API')}&language=en-US&page=1&query=[query]&include_adult=false"
         self.anime_jikan = "https://api.jikan.moe/v3/search/anime?q=[query]&page=1"
         self.manga_jikan = "https://api.jikan.moe/v3/search/manga?q=[query]&page=1"
+        self.kuryana = "https://kuryana.vercel.app/search/q/"

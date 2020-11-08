@@ -18,6 +18,7 @@ from dashboard.utils.browse.movies import Movies
 from dashboard.utils.browse.series import Series
 from dashboard.utils.browse.anime import Anime
 from dashboard.utils.browse.manga import Manga
+from dashboard.utils.browse.asian_drama import AsianDrama
 
 ## Dashboard > Collections View
 @method_decorator(login_required, name="dispatch")
@@ -209,6 +210,7 @@ class CollectionsFindItemView(View):
         "series": "main/collections/add-item-series.html",
         "anime": "main/collections/add-item-anime.html",
         "manga": "main/collections/add-item-manga.html",
+        "asian_drama": "main/collections/add-item-asian.html",
     }
 
     def get(self, request, slug, type, query, *args, **kwargs):
@@ -253,7 +255,7 @@ class CollectionsFindItemView(View):
 
         # manga collections
         elif type == "manga":
-            # search the anime with the api
+            # search the manga with the api
             find = Manga()
             results = find.search_manga(query)
 
@@ -262,6 +264,23 @@ class CollectionsFindItemView(View):
                 request,
                 self.template_name["manga"],
                 {"slug": slug, "query": query, "results": results, "type": "manga"},
+            )
+
+        elif type == "asian-drama":
+            # search the asian drama with the api
+            find = AsianDrama()
+            results = find.search_asian(query)
+
+            # render the results
+            return render(
+                request,
+                self.template_name["asian_drama"],
+                {
+                    "slug": slug,
+                    "query": query,
+                    "results": results,
+                    "type": "asian drama",
+                },
             )
 
     def post(self, request, *args, **kwargs):
