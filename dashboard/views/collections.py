@@ -16,6 +16,7 @@ from dashboard.models.collections import Collections, Stuff, Inclution
 from nanoid import generate
 from dashboard.utils.browse.movies import Movies
 from dashboard.utils.browse.series import Series
+from dashboard.utils.browse.anime import Anime
 
 ## Dashboard > Collections View
 @method_decorator(login_required, name="dispatch")
@@ -201,9 +202,14 @@ class CollectionsPageView(View):
 
 
 class CollectionsFindItemView(View):
-    template_name = {"movie": "main/collections/add-item-movies.html", "series": "main/collections/add-item-series.html"}
+    template_name = {
+        "movie": "main/collections/add-item-movies.html",
+        "series": "main/collections/add-item-series.html",
+        "anime": "main/collections/add-item-anime.html",
+    }
 
     def get(self, request, slug, type, query, *args, **kwargs):
+        # movies collections
         if type == "movie":
             # search the movies with the api
             find = Movies()
@@ -215,6 +221,8 @@ class CollectionsFindItemView(View):
                 self.template_name["movie"],
                 {"slug": slug, "query": query, "results": results, "type": "movie"},
             )
+
+        # series collections
         elif type == "series":
             # search the series with the api
             find = Series()
@@ -224,7 +232,20 @@ class CollectionsFindItemView(View):
             return render(
                 request,
                 self.template_name["series"],
-                {"slug": slug, "query": query, "results": results, "type": "movie"},
+                {"slug": slug, "query": query, "results": results, "type": "series"},
+            )
+
+        # anime collections
+        elif type == "anime":
+            # search the anime with the api
+            find = Anime()
+            results = find.search_anime(query)
+
+            # render the results
+            return render(
+                request,
+                self.template_name["anime"],
+                {"slug": slug, "query": query, "results": results, "type": "anime"},
             )
 
     def post(self, request, *args, **kwargs):
