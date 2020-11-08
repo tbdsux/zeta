@@ -15,6 +15,7 @@ from dashboard.models.collections import Collections, Stuff, Inclution
 # utilities
 from nanoid import generate
 from dashboard.utils.browse.movies import Movies
+from dashboard.utils.browse.series import Series
 
 ## Dashboard > Collections View
 @method_decorator(login_required, name="dispatch")
@@ -200,7 +201,7 @@ class CollectionsPageView(View):
 
 
 class CollectionsFindItemView(View):
-    template_name = {"movie": "main/collections/add-item-movies.html"}
+    template_name = {"movie": "main/collections/add-item-movies.html", "series": "main/collections/add-item-series.html"}
 
     def get(self, request, slug, type, query, *args, **kwargs):
         if type == "movie":
@@ -212,6 +213,17 @@ class CollectionsFindItemView(View):
             return render(
                 request,
                 self.template_name["movie"],
+                {"slug": slug, "query": query, "results": results, "type": "movie"},
+            )
+        elif type == "series":
+            # search the series with the api
+            find = Series()
+            results = find.search_series(query)
+
+            # render the results
+            return render(
+                request,
+                self.template_name["series"],
                 {"slug": slug, "query": query, "results": results, "type": "movie"},
             )
 
