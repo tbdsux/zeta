@@ -19,6 +19,7 @@ from dashboard.utils.browse.series import Series
 from dashboard.utils.browse.anime import Anime
 from dashboard.utils.browse.manga import Manga
 from dashboard.utils.browse.asian_drama import AsianDrama
+from dashboard.utils.browse.book import Book
 
 ## Dashboard > Collections View
 @method_decorator(login_required, name="dispatch")
@@ -211,6 +212,7 @@ class CollectionsFindItemView(View):
         "anime": "main/collections/add-item-anime.html",
         "manga": "main/collections/add-item-manga.html",
         "asian_drama": "main/collections/add-item-asian.html",
+        "book": "main/collections/add-item-book.html",
     }
 
     def get(self, request, slug, type, query, *args, **kwargs):
@@ -266,6 +268,7 @@ class CollectionsFindItemView(View):
                 {"slug": slug, "query": query, "results": results, "type": "manga"},
             )
 
+        # asian drama collections
         elif type == "asian-drama":
             # search the asian drama with the api
             find = AsianDrama()
@@ -275,6 +278,24 @@ class CollectionsFindItemView(View):
             return render(
                 request,
                 self.template_name["asian_drama"],
+                {
+                    "slug": slug,
+                    "query": query,
+                    "results": results,
+                    "type": "asian drama",
+                },
+            )
+
+        # book collections
+        elif type == "book":
+            # search the book with the api
+            find = Book()
+            results = find.search_book(query)
+
+            # render the results
+            return render(
+                request,
+                self.template_name["book"],
                 {
                     "slug": slug,
                     "query": query,

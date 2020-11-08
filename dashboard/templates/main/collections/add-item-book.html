@@ -10,7 +10,7 @@
   <div class="flex justify-center">
     <div class="my-16 w-1/2 p-6 mx-auto shadow-lg rounded border-2 border-purple-600">
       <div class="flex items-center justify-between">
-        <h3 class="text-lg tracking-wide"><span class="font-light">Search asian drama for</span> <strong class="text-purple-600">'{{query}}'</strong></h3>
+        <h3 class="text-lg tracking-wide"><span class="font-light">Search book/s for</span> <strong class="text-purple-600">'{{query}}'</strong></h3>
         <a href="{% url 'collections-page' slug=slug %}" type="button" class="py-2 px-6 text-sm tracking-wide rounded-full bg-gray-200 hover:bg-gray-300 cursor-pointer mx-1">Cancel</a>
       </div>
       <hr class="my-2">
@@ -26,9 +26,9 @@
                     {% csrf_token %}
                     <input type="hidden" name="slugid" value="{{slug}}">
                     <input type="hidden" name="type" value="{{type}}">
-                    <input type="hidden" name="title" value="{{result.title}} ({{result.year}})">
-                    {% if result.thumb %}
-                    <input type="hidden" name="img" value="{{result.thumb|mdl_img}}">
+                    <input type="hidden" name="title" value="{{result.title}} {{result.author_name}}">
+                    {% if result.cover_i %}
+                    <input type="hidden" name="img" value="https://covers.openlibrary.org/b/id/{{result.cover_i}}-L.jpg">
                     {% else %}
                     <input type="hidden" name="img" value="None">
                     {% endif %}
@@ -36,14 +36,14 @@
                   </form>
                 </div>
               </div>
-              {% if result.thumb %}
-                <img src="{{result.thumb|mdl_img}}" class="object-top rounded-t h-40 w-full object-cover" alt="">
+              {% if result.cover_i %}
+                <img src="https://covers.openlibrary.org/b/id/{{result.cover_i}}-L.jpg" class="object-top rounded-t h-40 w-full object-cover" alt="">
               {% else %}
                 <div class="h-40 flex items-center justify-center w-full bg-purple-500">
                   <p class="text-xl font-bold tracking-wide text-white">NONE</p>
                 </div>
               {% endif %}
-              <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.title}} ({{result.year}})</p>
+              <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.title}} {{result.author_name}}</p>
             </div>
           </li>
           {% endfor %}

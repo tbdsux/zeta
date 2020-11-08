@@ -14,3 +14,4 @@ class Finder:
         self.anime_jikan = "https://api.jikan.moe/v3/search/anime?q=[query]&page=1"
         self.manga_jikan = "https://api.jikan.moe/v3/search/manga?q=[query]&page=1"
         self.kuryana = "https://kuryana.vercel.app/search/q/"
+        self.open_library = "http://openlibrary.org/search.json?title=[query]&page=1"
