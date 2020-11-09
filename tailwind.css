@@ -60,6 +60,10 @@
     @apply text-purple-600 border-purple-700 outline-none;
 }
 
+/* collections group */
+.collections-group{
+    @apply mt-4 grid gap-2 grid-flow-row;
+}
 
 
 @import 'tailwindcss/utilities';
