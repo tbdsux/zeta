@@ -14,6 +14,16 @@
         <a href="{% url 'collections-page' slug=slug %}" type="button" class="py-2 px-6 text-sm tracking-wide rounded-full bg-gray-200 hover:bg-gray-300 cursor-pointer mx-1">Cancel</a>
       </div>
       <hr class="my-2">
+      <!-- search form -->
+      <div class="mb-2 flex items-center justify-center result-find-another">
+        <form action="" method="POST">
+          {% csrf_token %}
+          {{form.slugid}}
+          {{form.type}}
+          {{form.query}}
+          <input type="submit" value="Find Item" class="border border-purple-600 py-1 px-3 lowercase text-sm cursor-pointer tracking-wide rounded bg-purple-600 text-white hover:bg-purple-700">
+        </form>
+      </div>
       <!-- search results -->
       <div class="px-4 py-2">
         <ul class="grid grid-cols-3 gap-4">

@@ -225,6 +225,8 @@ class CollectionsFindItemView(View):
     }
 
     def get(self, request, slug, type, query, *args, **kwargs):
+        # pass initial values to hidden inputs
+        form = self.form_class(initial={"slugid": slug, "type": type, "query": query})
         # movies collections
         if type == "movie":
             # search the movies with the api
@@ -235,7 +237,13 @@ class CollectionsFindItemView(View):
             return render(
                 request,
                 self.template_name["movie"],
-                {"slug": slug, "query": query, "results": results, "type": "movie"},
+                {
+                    "slug": slug,
+                    "query": query,
+                    "results": results,
+                    "type": "movie",
+                    "form": form,
+                },
             )
 
         # series collections
@@ -248,7 +256,13 @@ class CollectionsFindItemView(View):
             return render(
                 request,
                 self.template_name["series"],
-                {"slug": slug, "query": query, "results": results, "type": "series"},
+                {
+                    "slug": slug,
+                    "query": query,
+                    "results": results,
+                    "type": "series",
+                    "form": form,
+                },
             )
 
         # anime collections
@@ -261,7 +275,13 @@ class CollectionsFindItemView(View):
             return render(
                 request,
                 self.template_name["anime"],
-                {"slug": slug, "query": query, "results": results, "type": "anime"},
+                {
+                    "slug": slug,
+                    "query": query,
+                    "results": results,
+                    "type": "anime",
+                    "form": form,
+                },
             )
 
         # manga collections
@@ -274,7 +294,13 @@ class CollectionsFindItemView(View):
             return render(
                 request,
                 self.template_name["manga"],
-                {"slug": slug, "query": query, "results": results, "type": "manga"},
+                {
+                    "slug": slug,
+                    "query": query,
+                    "results": results,
+                    "type": "manga",
+                    "form": form,
+                },
             )
 
         # asian drama collections
@@ -292,6 +318,7 @@ class CollectionsFindItemView(View):
                     "query": query,
                     "results": results,
                     "type": "asian drama",
+                    "form": form,
                 },
             )
 
@@ -310,6 +337,7 @@ class CollectionsFindItemView(View):
                     "query": query,
                     "results": results,
                     "type": "asian drama",
+                    "form": form,
                 },
             )
 
@@ -325,33 +353,47 @@ class CollectionsFindItemView(View):
         return uid
 
     def post(self, request, *args, **kwargs):
-        # get and verify first the slugid
-        slug = request.POST["slugid"]
-        collection = Collections.objects.filter(slug=slug).filter(owner=request.user)[0]
-        uid = self.generate_uuid(slug)
-
-        if collection:
-            # create stuff item
-            item = Stuff.objects.create(
-                title=request.POST["title"],
-                img_src=request.POST["img"],
-                classification=request.POST["type"],
-                stuff_uid=uid,
+        # if the search form is submitted, this will be triggered
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            return redirect(
+                "collections-add-item",
+                slug=form.cleaned_data["slugid"],
+                type=form.cleaned_data["type"],
+                query=form.cleaned_data["query"],
             )
 
-            # add to inclusion
-            Inclution.objects.create(
-                user=request.user,
-                collection=collection,
-                stuff=item,
-                added_to=slug,
-            )
+        # is not, it will try to trigger the add new item
+        else:
+            # get and verify first the slugid
+            slug = request.POST["slugid"]
+            collection = Collections.objects.filter(slug=slug).filter(
+                owner=request.user
+            )[0]
+            uid = self.generate_uuid(slug)
 
-            # add success message
-            messages.success(request, "Successfully added new item!")
+            if collection:
+                # create stuff item
+                item = Stuff.objects.create(
+                    title=request.POST["title"],
+                    img_src=request.POST["img"],
+                    classification=request.POST["type"],
+                    stuff_uid=uid,
+                )
 
-            # redirect back to the collections page
-            return redirect("collections-page", slug=slug)
+                # add to inclusion
+                Inclution.objects.create(
+                    user=request.user,
+                    collection=collection,
+                    stuff=item,
+                    added_to=slug,
+                )
+
+                # add success message
+                messages.success(request, "Successfully added new item!")
+
+                # redirect back to the collections page
+                return redirect("collections-page", slug=slug)
 
 
 ## Dashboard > Removing an Item from the Collection

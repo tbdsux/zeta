@@ -52,6 +52,14 @@
     @apply border-purple-600 text-purple-600 outline-none;
 }
 
+/* search form in the results page */
+.result-find-another form input[type="text"]{
+    @apply border-b-2 text-gray-600 border-purple-600 py-1 px-2;
+}
+.result-find-another form input[type="text"]:focus{
+    @apply text-purple-600 border-purple-700 outline-none;
+}
+
 
 
 @import 'tailwindcss/utilities';

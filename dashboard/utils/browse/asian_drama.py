@@ -7,4 +7,6 @@ class AsianDrama(Finder):
         # search and get the response
         resp = requests.get(self.kuryana + query).json()["results"]
 
+        print(resp)
+
         return resp
