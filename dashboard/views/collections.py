@@ -91,6 +91,8 @@ class CollectionsView(View):
             return redirect("collections")
 
 
+## Dashboard > Update Collections Info
+@method_decorator(login_required, name="dispatch")
 class CollectionsUpdateView(View):
     form_class = UpdateCollectionForm
     template_name = "main/collections/collections_edit.html"
@@ -139,6 +141,8 @@ class CollectionsUpdateView(View):
                 return redirect("collections")
 
 
+## Dashboard > Remove a Collection
+@method_decorator(login_required, name="dispatch")
 class CollectionsDeleteView(View):
     template_name = "main/collections/collections_delete.html"
 
@@ -165,6 +169,8 @@ class CollectionsDeleteView(View):
             return redirect("collections")
 
 
+## Dashboard > Page of Each Collections
+@method_decorator(login_required, name="dispatch")
 class CollectionsPageView(View):
     form_class = AddItemCollection
     template_name = "main/collections/collections_page.html"
@@ -205,6 +211,8 @@ class CollectionsPageView(View):
             )
 
 
+## Dashboard > Finding and Adding a New Item to a Collection
+@method_decorator(login_required, name="dispatch")
 class CollectionsFindItemView(View):
     form_class = AddItemCollection
     template_name = {
@@ -346,6 +354,8 @@ class CollectionsFindItemView(View):
             return redirect("collections-page", slug=slug)
 
 
+## Dashboard > Removing an Item from the Collection
+@method_decorator(login_required, name="dispatch")
 class CollectionsRemoveItemView(View):
     template_name = "main/collections/delete-item.html"
 
