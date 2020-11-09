@@ -344,3 +344,38 @@ class CollectionsFindItemView(View):
 
             # redirect back to the collections page
             return redirect("collections-page", slug=slug)
+
+
+class CollectionsRemoveItemView(View):
+    template_name = "main/collections/delete-item.html"
+
+    def get(self, request, slug, stuff_id, *args, **kwargs):
+        # get the collection info
+        collection = Collections.objects.filter(owner=request.user).get(slug=slug)
+        # get the stuff info
+        stuff = collection.stuffs.get(stuff_uid=stuff_id)
+
+        if stuff and collection:
+            return render(
+                request, self.template_name, {"item": stuff, "collection": collection}
+            )
+
+    def post(self, request, *args, **kwargs):
+        # get the slug
+        slug = request.POST["slugid"]
+        # verify the slug and stuffid
+        stuff = Stuff.objects.filter(collections__slug=slug).get(
+            stuff_uid=request.POST["stuffid"]
+        )
+        if stuff:
+            # get the collection
+            collection = Collections.objects.filter(owner=request.user).get(slug=slug)
+
+            # remove the stuff from the collection
+            collection.stuffs.remove(stuff)
+
+            # success message
+            messages.success(request, "Successfully removed item!")
+
+            # redirect to the collections page
+            return redirect("collections-page", slug=slug)

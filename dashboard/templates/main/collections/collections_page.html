@@ -33,7 +33,7 @@
       {% for item in items %}
       <div class="bg-purple-600 group rounded relative">
         <div class="group-hover:flex items-center justify-center bg-bland absolute hidden w-full h-full z-50">
-          <a type="button" class="px-4 py-1 tracking-wide bg-red-600 hover:bg-red-700 text-white rounded cursor-pointer">remove</a>
+          <a href="{% url 'collections-remove-item' slug=collection.slug stuff_id=item.stuff_uid %}" type="button" class="px-4 py-1 tracking-wide bg-red-600 hover:bg-red-700 text-white rounded cursor-pointer">remove</a>
         </div>
         <!-- item img -->
         <div class="h-64 w-full relative">
