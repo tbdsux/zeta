@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from nanoid import generate
+import uuid
 
 # Stuffs model
 class Stuff(models.Model):
@@ -13,7 +14,8 @@ class Stuff(models.Model):
         ("asian drama", "Series from Asia."),
     )
 
-    title = models.CharField(max_length=50)
+    title = models.CharField(max_length=200)  # some book titles are freikin' long
+    stuff_uid = models.UUIDField(default=uuid.uuid4)
     img_src = models.CharField(max_length=100)
     classification = models.CharField(max_length=12, choices=ITEM_CLASS)
 

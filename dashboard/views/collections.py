@@ -14,6 +14,7 @@ from dashboard.models.collections import Collections, Stuff, Inclution
 
 # utilities
 from nanoid import generate
+import uuid
 from dashboard.utils.browse.movies import Movies
 from dashboard.utils.browse.series import Series
 from dashboard.utils.browse.anime import Anime
@@ -304,10 +305,22 @@ class CollectionsFindItemView(View):
                 },
             )
 
+    def generate_uuid(self, slug):
+        # generate the uuid
+        uid = uuid.uuid4()
+
+        # check if the id exists in the collection
+        check = Stuff.objects.filter(collections__slug=slug).filter(stuff_uid=uid)
+        if check:
+            return self.generate_uuid()
+
+        return uid
+
     def post(self, request, *args, **kwargs):
         # get and verify first the slugid
         slug = request.POST["slugid"]
         collection = Collections.objects.filter(slug=slug).filter(owner=request.user)[0]
+        uid = self.generate_uuid(slug)
 
         if collection:
             # create stuff item
@@ -315,6 +328,7 @@ class CollectionsFindItemView(View):
                 title=request.POST["title"],
                 img_src=request.POST["img"],
                 classification=request.POST["type"],
+                stuff_uid=uid,
             )
 
             # add to inclusion
