@@ -21,8 +21,8 @@ class AddCollectionForm(forms.ModelForm):
         ),
     )
     description = forms.CharField(
-        max_length=30,
-        required=True,
+        max_length=60,
+        required=False,
         widget=widgets.TextInput(
             attrs={"placeholder": "Enter some short description..."}
         ),
