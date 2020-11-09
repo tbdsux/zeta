@@ -34,10 +34,26 @@ class CollectionsView(View):
             "-date_created"
         )
 
+        # get each specific types / classifications
+        movies = collections.filter(type="movie")
+        series = collections.filter(type="series")
+        animes = collections.filter(type="anime")
+        mangas = collections.filter(type="manga")
+        books = collections.filter(type="book")
+        asian_dramas = collections.filter(type="asian drama")
+
         return render(
             request,
             self.template_name,
-            {"form": self.form_class, "collections": collections},
+            {
+                "form": self.form_class,
+                "movies": movies,
+                "series": series,
+                "animes": animes,
+                "mangas": mangas,
+                "books": books,
+                "asian_dramas": asian_dramas,
+            },
         )
 
     # generate a slug for the collection
