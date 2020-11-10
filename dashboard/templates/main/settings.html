@@ -5,9 +5,40 @@
 {% endblock title %}
 
 {% block content %}
-<div class="w-5/6 mx-auto py-10">
-    <div>
-        <h1 class="text-2xl"><strong class="text-3xl text-purple-600 font-black tracking-wide">{{user.username}}'s</strong> <span class="font-light">profile</span></h1>
-    </div>
+<div class="w-2/5 mx-auto py-16">
+  <h1 class="text-2xl"><strong class="text-3xl text-purple-600 font-black tracking-wide">{{user.username}}'s</strong> <span class="font-light">profile</span></h1>
+  <hr class="my-2">
+
+  {% if messages %}
+  <!-- message info -->
+  <div class="mb-2">
+    {% for message in messages %}
+    <p class="p-1 text-white rounded text-sm {{message.tags}} text-center font-light tracking-wide my-1">{{message}}</p>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <!-- user info update form -->
+  <div class="my-4">
+    <h3 class="text-xl font-bold text-gray-600 tracking-wide text-center">Update Your Information</h3>
+    <form action="" method="POST" class="mx-4 my-1">
+      {% csrf_token %}
+      <div class="flex flex-col w-full my-1 update-form">
+        <label class="text-lg font-light tracking-wide mb-1" for="username">Your username</label>
+        {{form.username}}
+      </div>
+      <div class="flex flex-col w-full my-1 update-form">
+        <label class="text-lg font-light tracking-wide mb-1" for="email">Your email</label>
+        {{form.email}}
+      </div>
+      <div class="flex flex-col w-full my-1 update-form">
+        <label class="text-lg font-light tracking-wide mb-1" for="password">New password</label>
+        {{form.password}}
+      </div>
+      <div class="my-1">
+        <input class="py-2 bg-purple-500 hover:bg-purple-700 cursor-pointer px-4 rounded text-white font-light tracking-wide" type="submit" value="Update Info">
+      </div>
+    </form>
+  </div>
 </div>
 {% endblock content %}

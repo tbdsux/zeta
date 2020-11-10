@@ -65,5 +65,13 @@
     @apply mt-4 grid gap-2 grid-flow-row;
 }
 
+/* account settings update forms */
+.update-form input{
+    @apply py-2 border-2 border-purple-200 rounded px-3;
+}
+.update-form input:focus{
+    @apply outline-none border-purple-600;
+}
+
 
 @import 'tailwindcss/utilities';

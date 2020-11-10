@@ -772,6 +772,28 @@ video {
   grid-auto-flow: row;
 }
 
+/* account settings update forms */
+
+.update-form input{
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-width: 2px;
+  --border-opacity: 1;
+  border-color: #e9d8fd;
+  border-color: rgba(233, 216, 253, var(--border-opacity));
+  border-radius: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.update-form input:focus{
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  --border-opacity: 1;
+  border-color: #805ad5;
+  border-color: rgba(128, 90, 213, var(--border-opacity));
+}
+
 .space-y-0 > :not(template) ~ :not(template) {
   --space-y-reverse: 0;
   margin-top: calc(0px * calc(1 - var(--space-y-reverse)));
