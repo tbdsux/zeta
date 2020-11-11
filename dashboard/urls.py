@@ -11,9 +11,10 @@ from .views.collections import (
 )
 from .views.browse import BrowseView, BrowseResultsView
 from .views.account import AccountSettingsView
+from .views.index import IndexDashboardView
 
 urlpatterns = [
-    path("", views.index, name="dash"),
+    path("", IndexDashboardView.as_view(), name="dash"),
     # collections view
     path("collections/", CollectionsView.as_view(), name="collections"),
     path(

@@ -14,3 +14,12 @@ def get_year(str_year):
 def parse_mdl_img(image):
     # replace the image string
     return str(image).replace("s.jpg", "c.jpg")
+
+
+@register.filter(name="get_length")
+def get_length(queryset):
+    count = 0
+    for i in queryset:
+        count += i.stuffs.count()
+
+    return count
