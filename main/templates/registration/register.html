@@ -5,7 +5,7 @@ Create New Account
 {% endblock title%} 
 
 {% block content %}
-<div class="py-24 w-5/6 mx-auto">
+<div class="py-24 w-5/6 sm:w-4/5 md:w-1/2 lg:w-2/5 xl:w-1/3 mx-auto">
     <!-- main register form -->
     <div class="w-full">
         <h4 class="text-center text-lg underline font-bold">
@@ -94,7 +94,7 @@ Create New Account
             </div>
             <div class="flex items-center py-1">
                 {{form.agree}}
-                <span class="pl-1 font-light text-sm tracking-wide">
+                <span class="pl-1 font-light text-sm tracking-wide truncate">
                 I agree to the
                 <a href="#" class="underline">Terms and Agreements</a>
                 </span>
@@ -112,7 +112,7 @@ Create New Account
     <hr class="my-8" />
 
     <!-- login account button -->
-    <div class="flex items-center justify-center">
+    <div class="flex items-center justify-center flex-col sm:flex-row">
         <h4 class="text-center font-light tracking-wide">
         Already have an account?
         </h4>
