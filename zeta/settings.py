@@ -144,6 +144,7 @@ STATIC_URL = "/assets/"
 
 # static files
 STATICFILES_DIRS = (os.path.join(BASE_DIR, "assets"),)
+STATIC_ROOT = os.path.join(BASE_DIR, "public")
 
 # media files
 MEDIA_URL = "/media/"
