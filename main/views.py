@@ -17,7 +17,7 @@ def Register(request):
 
     if request.method == "POST":
         form = RegisterForm(request.POST)
-        if form.is_valid():
+        if form.is_valid() and form.cleaned_data["agree"]:
             # save the login information
             user = form.save()
             # generate and save a UserProfile
@@ -27,8 +27,9 @@ def Register(request):
             # show the success message
             messages.success(request, "Your account has been successfully created!")
             return redirect("login")
+    else:
+        form = RegisterForm()
 
-    form = RegisterForm()
     return render(request, "registration/register.html", {"form": form})
 
 

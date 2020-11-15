@@ -1,12 +1,18 @@
 {% extends 'dashboard.html' %}
 
+{% load static %}
+
 {% block title %}
 {{user.username}} [zeta] | My Profile
 {% endblock title %}
 
 {% block content %}
 <div class="w-2/5 mx-auto py-16">
-  <h1 class="text-2xl"><strong class="text-3xl text-purple-600 font-black tracking-wide">{{user.username}}'s</strong> <span class="font-light">profile</span></h1>
+  <div class="flex items-center">
+    <img src="{% static 'profiles/profile.png' %}" alt="" class="w-24 h-24 object-cover rounded-full mr-2">
+    <h1 class="text-2xl"><strong class="text-3xl text-purple-600 font-black tracking-wide">{{user.username}}'s</strong> <span class="font-light">profile</span></h1>
+  </div>
+
   <hr class="my-2">
 
   {% if messages %}
@@ -20,23 +26,55 @@
 
   <!-- user info update form -->
   <div class="my-4">
-    <h3 class="text-xl font-bold text-gray-600 tracking-wide text-center">Update Your Information</h3>
+    <h3 class="text-xl font-bold text-gray-600 tracking-wide text-center">Update Your Account Information</h3>
+
+    <!-- username -->
     <form action="" method="POST" class="mx-4 my-1">
       {% csrf_token %}
-      <div class="flex flex-col w-full my-1 update-form">
+      <div class="flex flex-col w-full my-3 update-form">
+        {{uname_form.action}}
         <label class="text-lg font-light tracking-wide mb-1" for="username">Your username</label>
-        {{form.username}}
+        {{uname_form.username}}
+        {% if uname_form.username.errors %}
+        <div class="py-1">
+          <ul class="text-sm text-red-600">
+            {% for error in uname_form.username.errors %}
+            <li class="pl-2">
+              <p>{{ error }}</p>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
       </div>
-      <div class="flex flex-col w-full my-1 update-form">
+      <div class="my-3">
+        <input class="py-2 bg-purple-500 hover:bg-purple-700 cursor-pointer px-4 rounded text-white font-light tracking-wide" type="submit" value="Change Username">
+      </div>
+    </form>
+
+    <hr class="my-4">
+
+    <!-- email -->
+    <form action="" method="POST" class="mx-4 my-1">
+      {% csrf_token %}
+      <div class="flex flex-col w-full my-3 update-form">
+        {{email_form.action}}
         <label class="text-lg font-light tracking-wide mb-1" for="email">Your email</label>
-        {{form.email}}
+        {{email_form.email}}
+        {% if email_form.email.errors %}
+        <div class="py-1">
+          <ul class="text-sm text-red-600">
+            {% for error in email_form.email.errors %}
+            <li class="pl-2">
+              <p>{{ error }}</p>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
       </div>
-      <div class="flex flex-col w-full my-1 update-form">
-        <label class="text-lg font-light tracking-wide mb-1" for="password">New password</label>
-        {{form.password}}
-      </div>
-      <div class="my-1">
-        <input class="py-2 bg-purple-500 hover:bg-purple-700 cursor-pointer px-4 rounded text-white font-light tracking-wide" type="submit" value="Update Info">
+      <div class="my-3">
+        <input class="py-2 bg-purple-500 hover:bg-purple-700 cursor-pointer px-4 rounded text-white font-light tracking-wide" type="submit" value="Update Email Address">
       </div>
     </form>
   </div>

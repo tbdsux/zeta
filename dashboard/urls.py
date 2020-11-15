@@ -10,7 +10,7 @@ from .views.collections import (
     CollectionsRemoveItemView,
 )
 from .views.browse import BrowseView, BrowseResultsView
-from .views.account import AccountSettingsView
+from .views.account import AccountSettingsView, ChangePasswordView, Account_Settings
 from .views.index import IndexDashboardView
 
 urlpatterns = [
@@ -46,5 +46,8 @@ urlpatterns = [
     path("browse/", BrowseView.as_view(), name="browse"),
     path("browse/q/<str:query>", BrowseResultsView.as_view()),
     path("logout/", views.Logout, name="logout"),
-    path("account/", AccountSettingsView.as_view(), name="account"),
+    path("account/", Account_Settings, name="account"),
+    path(
+        "account/password/update", ChangePasswordView.as_view(), name="account-password"
+    ),
 ]

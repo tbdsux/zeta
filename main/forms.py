@@ -1,6 +1,8 @@
+from logging import error
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 from django.forms import widgets
 
 # add email to the default usercreation form of django
@@ -10,7 +12,12 @@ class RegisterForm(UserCreationForm):
         widget=forms.EmailInput(attrs={"placeholder": "Enter your email address"}),
         label="Email Address",
     )
-    agree = forms.BooleanField(required=True)
+    agree = forms.BooleanField(
+        required=True,
+        error_messages={
+            "required": "Please agree to the Terms and Agreements!"  # set a custom message
+        },
+    )
 
     class Meta:
         model = User
