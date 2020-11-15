@@ -10,7 +10,7 @@ from .views.collections import (
     CollectionsRemoveItemView,
 )
 from .views.browse import BrowseView, BrowseResultsView
-from .views.account import AccountSettingsView, ChangePasswordView, Account_Settings
+from .views.account import ChangePasswordView, Account_Settings
 from .views.index import IndexDashboardView
 
 urlpatterns = [

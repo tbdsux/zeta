@@ -16,63 +16,10 @@ from dashboard.forms.account import (
     UpdatePasswordForm,
 )
 
-
-## Dashboard > Accounts Settings View
-@method_decorator(login_required, name="dispatch")
-class AccountSettingsView(View):
-    form_class = {"username": UpdateUserInfoUsername, "email": UpdateUserInfoEmail}
-    template_name = "main/settings.html"
-
-    def get(self, request, *args, **kwargs):
-        uname_form = self.form_class["username"](
-            request.user,
-            initial={"username": request.user.username, "action": "username"},
-        )
-        email_form = self.form_class["email"](
-            request.user,
-            initial={"email": request.user.email, "action": "email"},
-        )
-
-        return render(
-            request,
-            self.template_name,
-            {"uname_form": uname_form, "email_form": email_form},
-        )
-
-    def post(self, request, *args, **kwargs):
-        action = request.POST["action"]
-
-        if action in ["username", "email"]:
-            form = self.form_class[action](request.user, data=request.POST)
-            print(action)
-            print(form.is_valid())
-            if form.is_valid():
-                form.save()
-
-                messages.success(
-                    request, f"You have successfully updated your {action}!"
-                )
-
-                return redirect("account")
-
-        uname_form = self.form_class["username"](
-            request.user,
-            initial={"username": request.user.username, "action": "username"},
-        )
-        email_form = self.form_class["email"](
-            request.user,
-            initial={"email": request.user.email, "action": "email"},
-        )
-
-        return render(
-            request,
-            self.template_name,
-            {"uname_form": uname_form, "email_form": email_form},
-        )
-
-
+## Dashboard > Change Personal Info View
 @login_required()
 def Account_Settings(request):
+    # intialize forms
     uname_form = UpdateUserInfoUsername(
         request.user,
         initial={"username": request.user.username, "action": "username"},
@@ -83,8 +30,11 @@ def Account_Settings(request):
     )
 
     if request.method == "POST":
-        action = request.POST["action"]
+        action = request.POST["action"]  # get what action to do
+
+        # update username
         if action == "username":
+            # needs to have similar name, think so, ..
             uname_form = UpdateUserInfoUsername(request.user, data=request.POST)
             if uname_form.is_valid():
                 uname_form.save()
@@ -95,7 +45,9 @@ def Account_Settings(request):
 
                 return redirect("account")
 
+        # update email
         elif action == "email":
+            # needs to have similar name, think so, ..
             email_form = UpdateUserInfoEmail(request.user, data=request.POST)
             if email_form.is_valid():
                 email_form.save()

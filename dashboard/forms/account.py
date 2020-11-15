@@ -4,13 +4,6 @@ from django.core.exceptions import ValidationError
 from django.forms import fields
 from django.contrib.auth.forms import PasswordChangeForm
 
-# Custom User Info Update Form
-class UpdateUserInfo(forms.ModelForm):
-    action = forms.CharField(widget=forms.HiddenInput, max_length=20)
-
-    class Meta:
-        fields = ["action"]
-
 
 # Custom User Info Update Form (Username)
 class UpdateUserInfoUsername(forms.ModelForm):
@@ -44,7 +37,7 @@ class UpdateUserInfoUsername(forms.ModelForm):
         return username
 
     def save(self, commit=True):
-        username = self.cleaned_data['username']
+        username = self.cleaned_data["username"]
         self.user.username = username
 
         if commit:
@@ -84,7 +77,7 @@ class UpdateUserInfoEmail(forms.ModelForm):
         return email
 
     def save(self, commit=True):
-        email = self.cleaned_data['email']
+        email = self.cleaned_data["email"]
         self.user.email = email
 
         if commit:
