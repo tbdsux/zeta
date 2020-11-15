@@ -12,7 +12,7 @@ class IndexDashboardView(View):
 
     def get(self, request, *args, **kwargs):
         # query the collections
-        collections = Collections.objects.all()
+        collections = Collections.objects.filter(owner=request.user)
 
         # query each type
         movies = collections.filter(type="movie")
