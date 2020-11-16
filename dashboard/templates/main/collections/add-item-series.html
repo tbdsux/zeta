@@ -26,17 +26,20 @@
       </div>
       <!-- search results -->
       <div class="px-4 py-2">
+        <!-- api credits -->
+        <small class="tracking-wide mb-1"><span class="font-light">Results provided by: </span><a href="https://www.themoviedb.org/" class="underline text-blue-600 font-bold">TMDB</a></small>
         <ul class="grid grid-cols-3 gap-4">
           {% for result in results %}
           <li>
             <div class="bg-purple-600 rounded border-2 relative border-purple-500 group">
               <div class="group-hover:flex items-center justify-center w-full h-full absolute hidden bg-bland">
-                <div>
+                <div class="text-center px-1">
+                  <h3 class="text-purple-100 font-light tracking-wide mb-1 h-24 overflow-auto">{{result.name}}</h3>
                   <form action="" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="slugid" value="{{slug}}">
                     <input type="hidden" name="type" value="{{type}}">
-                    <input type="hidden" name="title" value="{{result.name}} ({{result.first_air_date|get_year}})">
+                    <input type="hidden" name="title" value="{{result.name}} {% if result.first_air_date %}({{result.first_air_date|get_year}}){% endif %}">
                     {% if result.poster_path %}
                     <input type="hidden" name="img" value="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.poster_path}}">
                     {% elif result.backdrop_path %}
@@ -57,7 +60,7 @@
                   <p class="text-xl font-bold tracking-wide text-white">NONE</p>
                 </div>
               {% endif %}
-              <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.name}} ({{result.first_air_date|get_year}})</p>
+              <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.name}} {% if result.first_air_date %}({{result.first_air_date|get_year}}){% endif %}</p>
             </div>
           </li>
           {% endfor %}
