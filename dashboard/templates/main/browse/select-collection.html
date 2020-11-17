@@ -1,0 +1,38 @@
+{% extends 'dashboard.html' %}
+
+{% block title %}
+Select Collection to Add Item
+{% endblock title %}
+
+{% block content %}
+  <div class="flex items-center justify-center">
+    <div class="my-12 w-2/3 mx-auto p-6 shadow-xl">
+      <h2 class="text-xl tracking-wide font-bold text-purple-600 text-center mb-2">Choose a Collection</h2>
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg tracking-wide font-light">Select a Collection to add <span class="underline font-bold text-purple-500">{{data.title}}</span></h3>
+        <a href="{% url 'collections' %}" type="button" class="py-2 px-6 text-sm tracking-wide rounded-full bg-gray-200 hover:bg-gray-300 cursor-pointer mx-1">Cancel</a>
+      </div>
+      <hr class="my-4">
+      <div class="w-11/12 mx-auto grid grid-cols-2 gap-4">
+        {% for collection in collections %}
+          <div class="bg-gray-300 group rounded flex relative h-24 w-full items-center justify-between py-4 px-6 hover:bg-purple-600">
+            <div class="w-3/4">
+              <h2 class="text-purple-600 text-2xl font-black tracking-wide group-hover:text-white">{{collection.name}}</h2>
+              <p class="text-gray-600 text-lg tracking-wide font-light group-hover:text-white truncate">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nulla, earum atque, tempora quidem nemo quam sint, provident laudantium officiis consequatur aliquid? Magni nostrum aspernatur vero a dolore! Est, sed dicta?</p>
+            </div>
+            <div class="group-hover:flex hidden">
+              <form action="" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="slugid" value="{{collection.slug}}">
+                <input type="hidden" name="type" value="{{type}}">
+                <input type="hidden" name="title" value="{{data.title}}">
+                <input type="hidden" name="img" value={{data.img}}>
+                <input type="submit" value="Select" class="py-2 px-4 rounded bg-purple-100 hover:bg-purple-500 text-purple-600 hover:text-white cursor-pointer tracking-wide uppercase text-sm">
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock content %}

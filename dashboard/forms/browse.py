@@ -9,7 +9,7 @@ class BrowseForm(forms.Form):
         ("anime", "Anime"),
         ("book", "Books"),
         ("manga", "Manga"),
-        ("asian drama", "Asian Drama"),
+        ("asian-drama", "Asian Drama"),
     )
 
     query = forms.CharField(
@@ -17,4 +17,4 @@ class BrowseForm(forms.Form):
         required=True,
         widget=widgets.TextInput(attrs={"placeholder": "Enter something to search..."}),
     )
-    type = forms.ChoiceField(widget=forms.Select, required=False, choices=TYPE_CLASS)
+    type = forms.ChoiceField(widget=forms.Select, required=True, choices=TYPE_CLASS)

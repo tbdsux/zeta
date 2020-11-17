@@ -51,6 +51,12 @@
 .browse-input input:focus{
     @apply border-purple-600 text-purple-600 outline-none;
 }
+.browse-input  select{
+    @apply text-center py-2 rounded px-4 border-2 bg-gray-300;
+}
+.browse-input select:focus{
+    @apply outline-none border-purple-600;
+}
 
 /* search form in the results page */
 .result-find-another form input[type="text"]{
@@ -58,6 +64,13 @@
 }
 .result-find-another form input[type="text"]:focus{
     @apply text-purple-600 border-purple-700 outline-none;
+}
+
+.result-find-another select{
+    @apply p-2 rounded border-2 mx-2 text-sm tracking-wide font-light;
+}
+.result-find-another select:focus{
+    @apply outline-none border-purple-600;
 }
 
 /* collections group */

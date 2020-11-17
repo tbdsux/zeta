@@ -5,8 +5,8 @@
 {% endblock title %}
 
 {% block content %}
-  <div class="py-10 w-11/12 mx-auto">
-    <div class="text-center px-4 py-8 shadow-lg">
+  <div class="py-10 w-1/2 mx-auto">
+    <div class="text-center p-8 shadow-lg">
       <h1 class="text-3xl font-bold text-purple-600">
         Browse New STUFF
       </h1>
@@ -14,13 +14,30 @@
         Search for new stuff to add to your collections.
       </p>
       <div class="pt-6">
-        <form action="">
+        <form action="" method="POST">
           {% csrf_token %}
-          <div class="flex flex-col browse-input">
+          <div class="flex flex-col browse-input my-1">
             <label for="search-input" class="font-light tracking-wide">
               Search Input
             </label>
             {{form.query}}
+            {% if form.query.errors %}
+            <div class="py-1">
+              <ul class="text-sm text-red-600">
+                {% for error in form.query.errors %}
+                <li class="pl-2">
+                  <p>{{ error }}</p>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            {% endif %}
+          </div>
+          <div class="flex flex-row browse-input items-center justify-center my-1">
+            <label for="search-input" class="font-light tracking-wide mr-1">
+              Type:
+            </label>
+            {{form.type}}
           </div>
           <div class="w-1/2 mx-auto flex flex-col">
             <input type="submit"

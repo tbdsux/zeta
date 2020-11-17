@@ -9,13 +9,13 @@ from .views.collections import (
     CollectionsFindItemView,
     CollectionsRemoveItemView,
 )
-from .views.browse import BrowseView, BrowseResultsView
+from .views.browse import BrowseView, BrowseResultsView, BrowseAddResultCol
 from .views.account import ChangePasswordView, Account_Settings
 from .views.index import IndexDashboardView
 
 urlpatterns = [
     path("", IndexDashboardView.as_view(), name="dash"),
-    # collections view
+    # --> collections view
     path("collections/", CollectionsView.as_view(), name="collections"),
     path(
         "collections/<slug:slug>/",
@@ -43,8 +43,19 @@ urlpatterns = [
         name="collections-remove-item",
     ),
     # end collections view
+    # --> browse view
     path("browse/", BrowseView.as_view(), name="browse"),
-    path("browse/q/<str:query>", BrowseResultsView.as_view()),
+    path(
+        "browse/<str:type>/q/<str:query>",
+        BrowseResultsView.as_view(),
+        name="browse-results",
+    ),
+    path(
+        "browse/<str:type>/q/item/add/<str:hash>",
+        BrowseAddResultCol.as_view(),
+        name="browse-add-item",
+    ),
+    # end browse view
     path("logout/", views.Logout, name="logout"),
     path("account/", Account_Settings, name="account"),
     path(
