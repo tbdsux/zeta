@@ -65,6 +65,9 @@ TEMPLATES = [
     },
 ]
 
+# DATABASE
+DATABASES = {}
+
 WSGI_APPLICATION = "zeta.wsgi.application"
 
 # Password validation
