@@ -37,7 +37,7 @@ class Collections(models.Model):
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, blank=False, null=False, default="0"
     )
-    collection_id = models.IntegerField(unique=True)
+    collection_id = models.BigIntegerField(unique=True, max_length=19)
     name = models.CharField(max_length=20)
     description = models.CharField(max_length=60, blank=True)
     type = models.CharField(max_length=12, choices=TYPE_CLASS)
