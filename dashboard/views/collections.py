@@ -15,6 +15,7 @@ from dashboard.models.collections import Collections, Stuff, Inclution
 # utilities
 from nanoid import generate
 import uuid
+from urllib.parse import quote, unquote
 from dashboard.utils.browse.movies import Movies
 from dashboard.utils.browse.series import Series
 from dashboard.utils.browse.anime import Anime
@@ -223,7 +224,7 @@ class CollectionsPageView(View):
                 "collections-add-item",
                 slug=form.cleaned_data["slugid"],
                 type=form.cleaned_data["type"],
-                query=form.cleaned_data["query"],
+                query=quote(form.cleaned_data["query"], safe=""),
             )
 
 
@@ -231,131 +232,59 @@ class CollectionsPageView(View):
 @method_decorator(login_required, name="dispatch")
 class CollectionsFindItemView(View):
     form_class = AddItemCollection
-    template_name = {
-        "movie": "main/collections/add-item-movies.html",
-        "series": "main/collections/add-item-series.html",
-        "anime": "main/collections/add-item-anime.html",
-        "manga": "main/collections/add-item-manga.html",
-        "asian_drama": "main/collections/add-item-asian.html",
-        "book": "main/collections/add-item-book.html",
-    }
+    template_name = "main/collections/add-item.html"
 
     def get(self, request, slug, type, query, *args, **kwargs):
+        # urldecode
+        query = unquote(query)
+
         # pass initial values to hidden inputs
         form = self.form_class(initial={"slugid": slug, "type": type, "query": query})
+
+        results = {}
+
         # movies collections
         if type == "movie":
-            # search the movies with the api
             find = Movies()
             results = find.search_movies(query)
 
-            # render the results
-            return render(
-                request,
-                self.template_name["movie"],
-                {
-                    "slug": slug,
-                    "query": query,
-                    "results": results,
-                    "type": "movie",
-                    "form": form,
-                },
-            )
-
         # series collections
         elif type == "series":
-            # search the series with the api
             find = Series()
             results = find.search_series(query)
 
-            # render the results
-            return render(
-                request,
-                self.template_name["series"],
-                {
-                    "slug": slug,
-                    "query": query,
-                    "results": results,
-                    "type": "series",
-                    "form": form,
-                },
-            )
-
         # anime collections
         elif type == "anime":
-            # search the anime with the api
             find = Anime()
             results = find.search_anime(query)
 
-            # render the results
-            return render(
-                request,
-                self.template_name["anime"],
-                {
-                    "slug": slug,
-                    "query": query,
-                    "results": results,
-                    "type": "anime",
-                    "form": form,
-                },
-            )
-
         # manga collections
         elif type == "manga":
-            # search the manga with the api
             find = Manga()
             results = find.search_manga(query)
 
-            # render the results
-            return render(
-                request,
-                self.template_name["manga"],
-                {
-                    "slug": slug,
-                    "query": query,
-                    "results": results,
-                    "type": "manga",
-                    "form": form,
-                },
-            )
-
         # asian drama collections
         elif type == "asian-drama":
-            # search the asian drama with the api
             find = AsianDrama()
             results = find.search_asian(query)
 
-            # render the results
-            return render(
-                request,
-                self.template_name["asian_drama"],
-                {
-                    "slug": slug,
-                    "query": query,
-                    "results": results,
-                    "type": "asian drama",
-                    "form": form,
-                },
-            )
-
         # book collections
         elif type == "book":
-            # search the book with the api
             find = Book()
             results = find.search_book(query)
 
-            # render the results
-            return render(
-                request,
-                self.template_name["book"],
-                {
-                    "slug": slug,
-                    "query": query,
-                    "results": results,
-                    "type": "asian drama",
-                    "form": form,
-                },
-            )
+        # render the results
+        return render(
+            request,
+            self.template_name,
+            {
+                "slug": slug,
+                "query": query,
+                "results": results,
+                "type": type.replace("-", " "),
+                "form": form,
+            },
+        )
 
     def generate_uuid(self, slug):
         # generate the uuid
@@ -369,18 +298,23 @@ class CollectionsFindItemView(View):
         return uid
 
     def post(self, request, *args, **kwargs):
-        # if the search form is submitted, this will be triggered
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            return redirect(
-                "collections-add-item",
-                slug=form.cleaned_data["slugid"],
-                type=form.cleaned_data["type"],
-                query=form.cleaned_data["query"],
-            )
+        # check the action
+        action = request.POST["action"]
+
+        # search form
+        if action == "find-item":
+            form = self.form_class(request.POST)
+
+            if form.is_valid():
+                return redirect(
+                    "collections-add-item",
+                    slug=form.cleaned_data["slugid"],
+                    type=form.cleaned_data["type"],
+                    query=quote(form.cleaned_data["query"], safe=""),
+                )
 
         # is not, it will try to trigger the add new item
-        else:
+        elif action == "add-item":
             # get and verify first the slugid
             slug = request.POST["slugid"]
             collection = Collections.objects.filter(slug=slug).filter(
