@@ -6,6 +6,7 @@ from django.contrib import messages
 
 from dashboard.models.collections import Collections, Stuff, Inclution
 import uuid
+from urllib.parse import quote, unquote  # for url encoding and decoding
 
 from dashboard.forms.browse import BrowseForm
 from dashboard.utils.browse.movies import Movies
@@ -104,7 +105,11 @@ class BrowseResultsView(View):
 
             hashed = Hasher.hash(data)
 
-            return redirect("browse-add-item", type=request.POST["type"], hash=hashed)
+            return redirect(
+                "browse-add-item",
+                type=request.POST["type"].replace(" ", "-"),
+                hash=quote(hashed, safe=""),
+            )
 
         # redirect (add error in the future)
         return redirect(request.path_info)
@@ -122,7 +127,7 @@ class BrowseAddResultCol(View):
         )
 
         # decode the hash
-        data = Hasher.decode(hash)
+        data = Hasher.decode(unquote(hash))
 
         return render(
             request,
