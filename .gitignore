@@ -1,8 +1,12 @@
 /node_modules
-__pycache__
+/__pycache__
+/**/__pycache__
+/**/**/__pycache__
+/**/**/**/__pycache__
 /venv
 .env
 public
 test.html
 test.py
+/.vscode
 /**/migrations
