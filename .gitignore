@@ -9,4 +9,6 @@ public
 test.html
 test.py
 /.vscode
+*.pyc
 /**/migrations
+db.sqlite3
