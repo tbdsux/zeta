@@ -12,3 +12,4 @@ test.py
 *.pyc
 /**/migrations
 db.sqlite3
+assets/css/style.css

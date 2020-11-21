@@ -1,8 +1,7 @@
+/* purgecss start ignore */
 @import 'tailwindcss/base';
-
 @import 'tailwindcss/components';
 
-/* user login register form */
 .user-form input{
     @apply py-2 px-3 border-2 rounded-md outline-none font-light;
 }
@@ -10,7 +9,6 @@
     @apply border-purple-700;
 }
 
-/* messages style */
 .success{
     @apply bg-green-500;
 }
@@ -24,7 +22,6 @@
     @apply bg-red-500;
 }
 
-/* new collection form */
 .add-collection input{
     @apply border-2 font-light tracking-wide;
 }
@@ -44,7 +41,6 @@
     @apply outline-none border-purple-600;
 }
 
-/* browse form */
 .browse-input input{
     @apply text-center text-lg tracking-wide py-3 border-2 px-4 rounded-md w-full;
 }
@@ -58,7 +54,6 @@
     @apply outline-none border-purple-600;
 }
 
-/* search form in the results page */
 .result-find-another form input[type="text"]{
     @apply border-b-2 text-gray-600 border-purple-600 py-1 px-2;
 }
@@ -73,18 +68,17 @@
     @apply outline-none border-purple-600;
 }
 
-/* collections group */
 .collections-group{
     @apply mt-4 grid gap-2 grid-flow-row;
 }
 
-/* account settings update forms */
 .update-form input{
     @apply py-2 border-2 border-purple-200 rounded px-3;
 }
 .update-form input:focus{
     @apply outline-none border-purple-600;
 }
+/* purgecss end ignore */
 
 
 @import 'tailwindcss/utilities';
