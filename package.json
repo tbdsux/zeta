@@ -18,8 +18,7 @@
   "scripts": {
     "start": "python3 manage.py runserver",
     "dev": "NODE_ENV=development concurrently 'npm run start' 'postcss tailwind.css -o assets/css/style.css --watch' 'browser-sync start --proxy \"localhost:8000\" --files \"**/*.*, !node_modules/**, !venv/**\"'",
-    "prod": "NODE_ENV=production postcss tailwind.css -o assets/css/style.css",
-    "heroku-postbuild": "npm run prod"
+    "build": "NODE_ENV=production postcss tailwind.css -o assets/css/style.css"
   },
   "keywords": [],
   "author": "",
