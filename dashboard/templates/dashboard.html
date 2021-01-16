@@ -28,7 +28,7 @@
         <div class="flex items-center justify-center px-4 h-full">
           <!-- user image -->
           <div class="relative h-32 w-32">
-            <img src="{% static 'profiles/profile.png' %}" alt="" class="absolute object-cover rounded-full w-full h-full">
+            <img src="{% static 'profiles/{{user.userprofile.acc_img}}' %}" alt="" class="absolute object-cover rounded-full w-full h-full">
           </div>
           <!-- user info -->
           <div class="ml-4">
