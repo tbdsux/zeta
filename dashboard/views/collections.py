@@ -41,19 +41,31 @@ class CollectionsView(View):
         animes = collections.filter(type="anime")
         mangas = collections.filter(type="manga")
         books = collections.filter(type="book")
-        asian_dramas = collections.filter(type="asian drama")
+        asian_dramas = collections.filter(type="asian drama").reverse()
+
+        # check if no resuls from query
+        none = True
+        if movies or series or animes or mangas or books or asian_dramas:
+            none = False
 
         return render(
             request,
             self.template_name,
             {
                 "form": self.form_class,
-                "movies": movies,
-                "series": series,
-                "animes": animes,
-                "mangas": mangas,
-                "books": books,
-                "asian_dramas": asian_dramas,
+                "items": [
+                    {"name": "movies", "title": "Movies", "collections": movies},
+                    {"name": "series", "title": "Series", "collections": series},
+                    {"name": "animes", "title": "Animes", "collections": animes},
+                    {"name": "mangas", "title": "Mangas", "collections": mangas},
+                    {"name": "books", "title": "Books", "collections": books},
+                    {
+                        "name": "asian_dramas",
+                        "title": "Asian Dramas",
+                        "collections": asian_dramas,
+                    },
+                ],
+                "none": none,
             },
         )
 

@@ -10,7 +10,7 @@ module.exports = {
       ...colors,
     },
     fontFamily: {
-      sans: ['"Libre Franklin"', 'sans-serif']
+      sans: ['"Catamaran"', 'sans-serif']
     },
     extend: {},
   },

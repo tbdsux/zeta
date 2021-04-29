@@ -11,9 +11,6 @@
     </title>
     <!-- main css -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    <!-- google font -->
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@200;300;400;600;700;800;900&display=swap"
-      rel="stylesheet" />
     <link rel="icon" href="/assets/images/favicon.ico" />
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.1/dist/alpine.min.js"
       defer></script>
@@ -58,13 +55,13 @@
         class="w-11/12 mx-auto py-4 flex items-center justify-between text-white"
       >
         <!-- logo -->
-        <h1 class="font-extrabold tracking-wide mx-2">zeta</h1>
+        <h1 class="font-extrabold tracking-wide mx-2 text-2xl">zeta</h1>
         <!-- main nav -->
-        <ul class="flex">
+        <ul class="flex font-medium">
           <li>
             <a
               href="{% url 'dash' %}"
-              class="font-light text-sm p-4 hover:bg-purple-800 rounded-md"
+              class="p-4 hover:bg-purple-800 rounded-md tracking-wider"
             >
               Dashboard
             </a>
@@ -72,7 +69,7 @@
           <li>
             <a
               href="{% url 'collections' %}"
-              class="font-light text-sm p-4 hover:bg-purple-800 rounded-md"
+              class="p-4 hover:bg-purple-800 rounded-md tracking-wider"
             >
               Collections
             </a>
@@ -80,7 +77,7 @@
           <li>
             <a
               href="{% url 'browse' %}"
-              class="font-light text-sm p-4 hover:bg-purple-800 rounded-md"
+              class="p-4 hover:bg-purple-800 rounded-md tracking-wider"
             >
               Browse
             </a>
@@ -93,7 +90,7 @@
               @click="open = true"
               :class="{'bg-purple-600':open}"
               type="button"
-              class="focus:outline-none z-40 text-sm hover:bg-purple-800 hover:underline inline-flex items-center px-4 border border-purple-600 rounded py-1"
+              class="text-lg focus:outline-none z-40 hover:bg-purple-800 hover:underline inline-flex items-center px-4 border border-purple-600 rounded py-1"
             >
               <img src="{% static 'profiles/profile.png' %}" alt="" class="w-8 h-8" />
               <span class="ml-2 mr-1">{{user.username}}</span>
@@ -111,7 +108,7 @@
           <ul
             x-show="open"
             @click.away="open=false"
-            class="absolute bg-purple-900 w-full text-sm mt-1 font-light py-3 rounded text-center"
+            class="absolute bg-purple-900 w-full mt-1 py-3 rounded text-center"
           >
             <li class="py-1">
               <button @click="profile=true" class="opacity-75 hover:opacity-100">Profile</button>
