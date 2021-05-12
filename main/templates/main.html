@@ -15,35 +15,39 @@
   </head>
   <body class="antialiased w-full h-full">
     <!-- header section -->
-    <header class="bg-purple-600 py-4">
-      <div class="text-white w-11/12 mx-auto flex items-center justify-between">
-        <h1 class="font-black text-lg px-4">
+    <header class="py-6">
+      <div class="w-11/12 mx-auto flex items-center justify-between">
+        <h1 class="text-purple-500 font-black text-3xl px-4 tracking-wider">
           zeta
         </h1>
-        <nav class="text-sm">
-          <ul class="flex">
-            <li class="font-light">
-              <a href="{% url 'index' %}" class="py-4 px-2 sm:px-4 hover:bg-purple-800">Home</a>
+        <nav>
+          <ul class="flex text-lg text-gray-500">
+            <li class="font-medium mx-4 tracking-wide">
+              <a href="{% url 'index' %}" class="px-2 sm:px-4 hover:text-purple-500">Home</a>
             </li>
-            <li class="font-light">
-              <a href="#" class="py-4 px-2 sm:px-4 hover:bg-purple-800">About</a>
+            <li class="font-medium mx-4 tracking-wide">
+              <a href="#" class="px-2 sm:px-4 hover:text-purple-500">About</a>
             </li>
-            <li class="">
-              <a href="{% url 'login' %}" class="py-4 px-2 sm:px-4 hover:bg-purple-800">Account</a>
+            <li class="font-medium ml-4 tracking-wide">
+              <a href="{% url 'login' %}" class="px-2 sm:px-4 hover:text-purple-500">Account</a>
             </li>
           </ul>
         </nav>
       </div>
     </header>
 
+    <hr />
+
     <!-- main section -->
     {% block content %}
 
     {% endblock content %}
 
+    <hr />
+
     <!-- footer -->
-    <footer class="text-center bg-purple-600 text-white py-3">
-      <p class="text-sm font-light tracking-wide">
+    <footer class="text-center text-gray-800 py-6">
+      <p class="tracking-wide">
         zeta | &copy; 2020
       </p>
     </footer>
