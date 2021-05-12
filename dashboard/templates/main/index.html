@@ -9,106 +9,29 @@
 {% block content %}
   <div class="w-5/6 mx-auto py-6">
     <h3 class="uppercase font-bold text-sm mt-1">Dashboard</h3>
-    <div class="w-full bg-gray-200 px-4 py-2 rounded mb-4 mt-3">
+    <div class="w-full text-right mb-4 mt-3">
       <h3 class="text-xl font-bold tracking-wide">Total Collections: <span class="ml-4 font-black text-purple-600 text-2xl">{{col_count}}</span></h3>
     </div>
-    <div class="grid grid-cols-3 gap-4">
-      <!-- Movies -->
-      <div class="relative bg-blue-500 h-48 p-4 rounded">
-        <h3 class="text-white absolute w-full h-full uppercase font-bold text-lg">
-          Movies
+    <div class="grid grid-cols-3 gap-8 z-20">
+      <!-- iterate over collections -->
+      {% for collection in collections %}
+      <a href="" class="relative bg-purple-500 opacity-90 hover:opacity-100 h-48 p-4 rounded-lg">
+        <h3 class="text-gray-100 absolute w-full h-full uppercase font-bold text-lg">
+          {{collection.title}}
         </h3>
         <div class="mt-4 w-full h-full flex items-center justify-center">
           <div class="w-full">
-            <div class="bg-blue-700 flex justify-center text-white py-2 px-2 rounded items-center my-1 w-3/4 mx-auto">
-              <h2 class="font-black text-3xl">{{movies.count}}</h2><label class="text-lg font-light tracking-wide ml-4">Collections</label>
+            <div class="inline-flex justify-center text-center text-white py-2 px-2 rounded items-center my-1 w-full">
+              <h2 class="font-black text-4xl">{{collection.collections.count}}</h2><label class="text-lg font-light tracking-wide ml-4">Collections</label>
             </div>
-            <div class="bg-blue-600 flex justify-center text-white py-2 px-2 rounded items-center my-1 w-3/4 mx-auto">
-              <h2 class="font-black text-xl">{{movies|get_length}}</h2><label class="text-lg font-light tracking-wide ml-4">Total Items</label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Series -->
-      <div class="relative bg-indigo-500 h-48 p-4 rounded">
-        <h3 class="text-white absolute w-full h-full uppercase font-bold text-lg">
-          Series
-        </h3>
-        <div class="mt-4 w-full h-full flex items-center justify-center">
-          <div class="w-full">
-            <div class="bg-indigo-700 flex justify-center text-white py-2 px-2 rounded items-center my-1 w-3/4 mx-auto">
-              <h2 class="font-black text-3xl">{{series.count}}</h2><label class="text-lg font-light tracking-wide ml-4">Collections</label>
-            </div>
-            <div class="bg-indigo-600 flex justify-center text-white py-2 px-2 rounded items-center my-1 w-3/4 mx-auto">
-              <h2 class="font-black text-xl">{{series|get_length}}</h2><label class="text-lg font-light tracking-wide ml-4">Total Items</label>
+            <hr>
+            <div class="inline-flex justify-center text-center text-white py-2 px-2 rounded items-center my-1 w-full">
+              <h2 class="font-black text-2xl">{{collection.collections|get_length}}</h2><label class="text-lg font-light tracking-wide ml-4">Total Items</label>
             </div>
           </div>
         </div>
-      </div>
-      <!-- Anime -->
-      <div class="relative bg-gray-500 h-48 p-4 rounded">
-        <h3 class="text-white absolute w-full h-full uppercase font-bold text-lg">
-          Anime
-        </h3>
-        <div class="mt-4 w-full h-full flex items-center justify-center">
-          <div class="w-full">
-            <div class="bg-gray-700 flex justify-center text-white py-2 px-2 rounded items-center my-1 w-3/4 mx-auto">
-              <h2 class="font-black text-3xl">{{animes.count}}</h2><label class="text-lg font-light tracking-wide ml-4">Collections</label>
-            </div>
-            <div class="bg-gray-600 flex justify-center text-white py-2 px-2 rounded items-center my-1 w-3/4 mx-auto">
-              <h2 class="font-black text-xl">{{animes|get_length}}</h2><label class="text-lg font-light tracking-wide ml-4">Total Items</label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Books -->
-      <div class="relative bg-green-500 h-48 p-4 rounded">
-        <h3 class="text-white absolute w-full h-full uppercase font-bold text-lg">
-          Books
-        </h3>
-        <div class="mt-4 w-full h-full flex items-center justify-center">
-          <div class="w-full">
-            <div class="bg-green-700 flex justify-center text-white py-2 px-2 rounded items-center my-1 w-3/4 mx-auto">
-              <h2 class="font-black text-3xl">{{books.count}}</h2><label class="text-lg font-light tracking-wide ml-4">Collections</label>
-            </div>
-            <div class="bg-green-600 flex justify-center text-white py-2 px-2 rounded items-center my-1 w-3/4 mx-auto">
-              <h2 class="font-black text-xl">{{books|get_length}}</h2><label class="text-lg font-light tracking-wide ml-4">Total Items</label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Manga -->
-      <div class="relative bg-pink-500 h-48 p-4 rounded">
-        <h3 class="text-white absolute w-full h-full uppercase font-bold text-lg">
-          Manga
-        </h3>
-        <div class="mt-4 w-full h-full flex items-center justify-center">
-          <div class="w-full">
-            <div class="bg-pink-700 flex justify-center text-white py-2 px-2 rounded items-center my-1 w-3/4 mx-auto">
-              <h2 class="font-black text-3xl">{{mangas.count}}</h2><label class="text-lg font-light tracking-wide ml-4">Collections</label>
-            </div>
-            <div class="bg-pink-600 flex justify-center text-white py-2 px-2 rounded items-center my-1 w-3/4 mx-auto">
-              <h2 class="font-black text-xl">{{mangas|get_length}}</h2><label class="text-lg font-light tracking-wide ml-4">Total Items</label>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Asian Drama -->
-      <div class="relative bg-red-500 h-48 p-4 rounded">
-        <h3 class="text-white absolute w-full h-full uppercase font-bold text-lg">
-          Asian Drama
-        </h3>
-        <div class="mt-4 w-full h-full flex items-center justify-center">
-          <div class="w-full">
-            <div class="bg-red-700 flex justify-center text-white py-2 px-2 rounded items-center my-1 w-3/4 mx-auto">
-              <h2 class="font-black text-3xl">{{asian_dramas.count}}</h2><label class="text-lg font-light tracking-wide ml-4">Collections</label>
-            </div>
-            <div class="bg-red-600 flex justify-center text-white py-2 px-2 rounded items-center my-1 w-3/4 mx-auto">
-              <h2 class="font-black text-xl">{{asian_dramas|get_length}}</h2><label class="text-lg font-light tracking-wide ml-4">Total Items</label>
-            </div>
-          </div>
-        </div>
-      </div>
+      </a>
+      {% endfor %}
     </div>
   </div>
 {% endblock content %}

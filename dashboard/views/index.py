@@ -28,11 +28,17 @@ class IndexDashboardView(View):
             self.template_name,
             {
                 "col_count": collections.count(),
-                "movies": movies,
-                "series": series,
-                "animes": animes,
-                "books": books,
-                "mangas": mangas,
-                "asian_dramas": asian_dramas,
+                "collections": [
+                    {"name": "movies", "title": "Movies", "collections": movies},
+                    {"name": "series", "title": "Series", "collections": series},
+                    {"name": "animes", "title": "Animes", "collections": animes},
+                    {"name": "books", "title": "Books", "collections": books},
+                    {"name": "mangas", "title": "Mangas", "collections": mangas},
+                    {
+                        "name": "asian_dramas",
+                        "title": "Asian Dramas",
+                        "collections": asian_dramas,
+                    },
+                ],
             },
         )
