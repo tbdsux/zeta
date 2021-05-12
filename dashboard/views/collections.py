@@ -124,7 +124,7 @@ class CollectionsView(View):
 @method_decorator(login_required, name="dispatch")
 class CollectionsUpdateView(View):
     form_class = UpdateCollectionForm
-    template_name = "main/collections/collections_edit.html"
+    template_name = "main/collections/collectionsEdit.html"
 
     def get(self, request, slug, *args, **kwargs):
         # query the slug collection
@@ -173,7 +173,7 @@ class CollectionsUpdateView(View):
 ## Dashboard > Remove a Collection
 @method_decorator(login_required, name="dispatch")
 class CollectionsDeleteView(View):
-    template_name = "main/collections/collections_delete.html"
+    template_name = "main/collections/collectionsDelete.html"
 
     def get(self, request, slug, *args, **kwargs):
         # query the slug id
@@ -202,7 +202,7 @@ class CollectionsDeleteView(View):
 @method_decorator(login_required, name="dispatch")
 class CollectionsPageView(View):
     form_class = AddItemCollection
-    template_name = "main/collections/collections_page.html"
+    template_name = "main/collections/collectionsPage.html"
 
     def get(self, request, slug, *args, **kwargs):
         # get the collection from the slug
@@ -244,7 +244,7 @@ class CollectionsPageView(View):
 @method_decorator(login_required, name="dispatch")
 class CollectionsFindItemView(View):
     form_class = AddItemCollection
-    template_name = "main/collections/add-item.html"
+    template_name = "main/collections/itemAdd.html"
 
     def get(self, request, slug, type, query, *args, **kwargs):
         # urldecode
@@ -361,7 +361,7 @@ class CollectionsFindItemView(View):
 ## Dashboard > Removing an Item from the Collection
 @method_decorator(login_required, name="dispatch")
 class CollectionsRemoveItemView(View):
-    template_name = "main/collections/delete-item.html"
+    template_name = "main/collections/itemDelete.html"
 
     def get(self, request, slug, stuff_id, *args, **kwargs):
         # get the collection info
