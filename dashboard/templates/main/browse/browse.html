@@ -5,28 +5,28 @@
 {% endblock title %}
 
 {% block content %}
-  <div class="py-10 w-1/2 mx-auto">
+  <div class="py-10 w-2/3 mx-auto">
     <div class="text-center p-8">
-      <h1 class="text-3xl font-bold text-purple-600">
+      <h1 class="text-4xl font-black text-purple-600">
         Browse New STUFF
       </h1>
-      <p class="font-light tracking-wide">
+      <p class="font-light text-xl text-gray-600 tracking-wide mt-2">
         Search for new stuff to add to your collections.
       </p>
       <div class="pt-6">
         <form action="" method="POST">
           {% csrf_token %}
           <div class="flex flex-col browse-input my-1">
-            <label for="search-input" class="font-light tracking-wide">
+            <label for="search-input" class="text-lg text-gray-700 tracking-wide">
               Search Input
             </label>
             {{form.query}}
             {% if form.query.errors %}
             <div class="py-1">
-              <ul class="text-sm text-red-600">
+              <ul class="text-red-600">
                 {% for error in form.query.errors %}
                 <li class="pl-2">
-                  <p>{{ error }}</p>
+                  <p class="tracking-wider">{{ error }}</p>
                 </li>
                 {% endfor %}
               </ul>
