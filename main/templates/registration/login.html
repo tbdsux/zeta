@@ -12,39 +12,39 @@
 		  {% if messages %}
       <div class="mb-4">
         {% for message in messages %}
-          <p class="p-1 text-white rounded {{message.tags}} text-center font-light tracking-wide">{{message}}</p>
+          <p class="p-1 text-white rounded {{message.tags}} text-center tracking-wider">{{message}}</p>
         {% endfor %}
       </div>
       {% endif %}
 	    
 
-      <h4 class="font-bold text-center text-lg underline">
+      <h4 class="font-bold text-center text-2xl text-gray-700 underline">
         Already have an Account?
       </h4>
       <form action="" method="POST">
         {% csrf_token %}
         <div class="flex flex-col py-1 user-form">
-          <label class="tracking-wide pt-1 font-light" for="uname">
+          <label class="tracking-wide pt-1 text-lg text-gray-600" for="uname">
           {{form.username.label}}
           </label>
           {{form.username}}
         </div>
         <div class="flex flex-col py-1 user-form">
-          <label class="tracking-wide pt-1 font-light" for="passwd">
+          <label class="tracking-wide pt-1 text-lg text-gray-600" for="passwd">
           {{form.password.label}}
           </label>
           {{form.password}}
         </div>
-        <div class="flex items-center py-1">
-          <input type="checkbox" name="" />
-          <span class="pl-1 font-light text-sm tracking-wide">
+        <div class="my-2">
+          <input type="checkbox" name="" class="h-4 w-4" />
+          <span class="pl-1 tracking-wide text-gray-600">
             Remember this account
           </span>
         </div>
         <div class="flex justify-center py-2">
           <input type="submit"
             value="Login"
-            class="py-2 px-10 text-sm uppercase tracking-wide font-bold bg-purple-500 hover:bg-purple-700 cursor-pointer text-white rounded" />
+            class="py-2 px-10 uppercase tracking-wide font-bold bg-purple-400 hover:bg-purple-500 cursor-pointer text-white rounded" />
         </div>
       </form>
     </div>
@@ -53,12 +53,12 @@
 
     <!-- register account button -->
     <div class="flex items-center justify-center flex-col sm:flex-row">
-      <h4 class="text-center font-light tracking-wide">
+      <h4 class="text-center tracking-wide">
         Don't have an account?
       </h4>
       <a href="{% url 'register' %}"
         type="button"
-        class="pl-2 uppercase text-purple-700 hover:underline font-bold">
+        class="pl-2 uppercase text-purple-500 hover:underline font-bold">
         Register
       </a>
     </div>
