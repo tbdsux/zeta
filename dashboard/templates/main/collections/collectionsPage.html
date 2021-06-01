@@ -5,71 +5,73 @@
 {% endblock title %}
 
 {% block content %}
-  <div class="w-5/6 mx-auto py-6">
-    <div class="mb-6 mt-3">
-      <h1 class="uppercase font-bold text-sm">Collections <span class="font-light ml-4">| {{collection.slug}}</span></h1>
-    </div>
-
-    {% if messages %}
-    <!-- messages -->
-    <div>
-      {% for message in messages %}
-        <p class="p-1 text-white rounded text-sm {{message.tags}} text-center tracking-wide my-1">{{message}}</p>
-      {% endfor %}
-    </div>
-    {% endif %}
-
-    <div class="my-4 flex items-start justify-between">
-      <div>
-        <h2 class="text-2xl font-black text-purple-600 tracking-wide">{{collection.name}} <small class="font-light tracking-wide">({{collection.type}})</small></h2>
-        <p class="font-light text-lg tracking-wide ml-4 text-gray-600">{{collection.description}}</p>
-      </div>
-      <button @click="add_item=true" class="py-1 px-4 text-white border-2 border-purple-600 bg-purple-600 rounded text-sm lowercase">Add Items</button>
-    </div>
-    <hr>
-
-    <!-- items -->
-    <div class="mt-6 w-11/12 mx-auto grid grid-cols-4 gap-4">
-      {% for item in items %}
-      <div class="bg-purple-600 border group rounded relative">
-        <div class="group-hover:flex items-center justify-center bg-bland absolute hidden w-full h-full z-50">
-          <a href="{% url 'collections-remove-item' slug=collection.slug stuff_id=item.stuff_uid %}" type="button" class="px-4 py-1 tracking-wide bg-red-600 hover:bg-red-700 text-white rounded cursor-pointer">remove</a>
-        </div>
-        <!-- item img -->
-        <div class="h-72 w-full relative">
-          <img src="{{item.img_src}}" alt="" class="w-full h-full object-cover absolute object-top rounded-t z-40">
-        </div>
-        <!-- item title -->
-        <h3 class="p-2 text-center text-white font-light tracking-wide">{{item.title}}</h3>
-      </div>
-      {% endfor %}
-    </div>
+<div class="w-5/6 mx-auto py-6">
+  <div class="mb-6 mt-3">
+    <h1 class="uppercase font-bold text-sm">Collections <span class="font-light ml-4">| {{collection.slug}}</span></h1>
   </div>
+
+  {% if messages %}
+  <!-- messages -->
+  <div>
+    {% for message in messages %}
+    <p class="p-1 text-white rounded text-sm {{message.tags}} text-center tracking-wide my-1">{{message}}</p>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <div class="my-4 flex items-start justify-between">
+    <div>
+      <h2 class="text-2xl font-black text-purple-600 tracking-wide">{{collection.name}} <small
+          class="font-light tracking-wide">({{collection.type}})</small></h2>
+      <p class="font-light text-lg tracking-wide ml-4 text-gray-600">{{collection.description}}</p>
+    </div>
+    <button @click="add_item=true"
+      class="py-1 px-4 text-white border-2 border-purple-600 bg-purple-600 rounded text-sm lowercase">Add Items</button>
+  </div>
+  <hr>
+
+  <!-- items -->
+  <div class="mt-6 w-11/12 mx-auto grid grid-cols-4 gap-4">
+    {% for item in items %}
+    <div class="bg-purple-600 border group rounded relative">
+      <div class="group-hover:flex items-center justify-center bg-bland absolute hidden w-full h-full z-50">
+        <a href="{% url 'collections-remove-item' slug=collection.slug stuff_id=item.stuff_uid %}" type="button"
+          class="px-4 py-1 tracking-wide bg-red-600 hover:bg-red-700 text-white rounded cursor-pointer">remove</a>
+      </div>
+      <!-- item img -->
+      <div class="h-72 w-full relative">
+        <img src="{{item.img_src}}" alt="" class="w-full h-full object-cover absolute object-top rounded-t z-40">
+      </div>
+      <!-- item title -->
+      <h3 class="p-2 text-center text-white font-light tracking-wide">{{item.title}}</h3>
+    </div>
+    {% endfor %}
+  </div>
+</div>
 {% endblock content %}
 
 {% block modal %}
- <!-- add new items to collections -->
-  <div class="fixed bg-bland h-screen w-full z-50 flex items-center justify-center" x-show="add_item">
-    <div class="bg-white w-1/2 mx-auto py-12 rounded-md flex items-center justify-center" @click.away="add_item=false">
-      <div class="w-4/5">
-        <h3 class="mb-3 text-lg text-center text-gray-800">Add New Item</h3>
-        <form action="" method="POST">
-          {% csrf_token %}
-          {{form.type}}
-          {{form.slugid}}
-          <div class="flex flex-col browse-input">
-            <label for="search-input" class="font-light tracking-wide">
-              Enter the name of the item...
-            </label>
-            {{form.query}}
-          </div>
-          <div class="w-1/2 mx-auto flex flex-col">
-            <input type="submit"
-              value="Find Item"
-              class="my-1 py-2 rounded-full bg-purple-500 text-white hover:bg-purple-700 cursor-pointer" />
-          </div>
-        </form>
-      </div>
+<!-- add new items to collections -->
+<div class="fixed bg-bland h-screen w-full z-50 flex items-center justify-center" x-show="add_item">
+  <div class="bg-white w-1/2 mx-auto py-12 rounded-md flex items-center justify-center" @click.away="add_item=false">
+    <div class="w-4/5">
+      <h3 class="mb-3 text-lg text-center text-gray-800">Add New Item</h3>
+      <form action="" method="POST">
+        {% csrf_token %}
+        {{form.type}}
+        {{form.slugid}}
+        <div class="flex flex-col browse-input">
+          <label for="search-input" class="font-light tracking-wide">
+            Enter the name of the item...
+          </label>
+          {{form.query}}
+        </div>
+        <div class="w-1/2 mx-auto flex flex-col">
+          <input type="submit" value="Find Item"
+            class="my-1 py-2 rounded-full bg-purple-500 text-white hover:bg-purple-700 cursor-pointer" />
+        </div>
+      </form>
     </div>
   </div>
+</div>
 {% endblock modal %}

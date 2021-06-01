@@ -1,55 +1,58 @@
 {% load static %}
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="utf-8" />
-    <title>
-      {% block title %}
 
-      {% endblock title %}
-    </title>
-    <!-- main css -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    {# <link rel="icon" href="/assets/images/favicon.ico" /> #}
-  </head>
-  <body class="antialiased w-full h-full">
-    <!-- header section -->
-    <header class="py-6">
-      <div class="w-11/12 mx-auto flex items-center justify-between">
-        <h1 class="text-purple-500 font-black text-3xl px-4 tracking-wider">
-          zeta
-        </h1>
-        <nav>
-          <ul class="flex text-lg text-gray-500">
-            <li class="font-medium mx-4 tracking-wide">
-              <a href="{% url 'index' %}" class="px-2 sm:px-4 hover:text-purple-500">Home</a>
-            </li>
-            <li class="font-medium mx-4 tracking-wide">
-              <a href="#" class="px-2 sm:px-4 hover:text-purple-500">About</a>
-            </li>
-            <li class="font-medium ml-4 tracking-wide">
-              <a href="{% url 'login' %}" class="px-2 sm:px-4 hover:text-purple-500">Account</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" />
+  <title>
+    {% block title %}
 
-    <hr />
+    {% endblock title %}
+  </title>
+  <!-- main css -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  {# <link rel="icon" href="/assets/images/favicon.ico" /> #}
+</head>
 
-    <!-- main section -->
-    {% block content %}
+<body class="antialiased w-full h-full">
+  <!-- header section -->
+  <header class="py-6">
+    <div class="w-11/12 mx-auto flex items-center justify-between">
+      <h1 class="text-purple-500 font-black text-3xl px-4 tracking-wider">
+        zeta
+      </h1>
+      <nav>
+        <ul class="flex text-lg text-gray-500">
+          <li class="font-medium mx-4 tracking-wide">
+            <a href="{% url 'index' %}" class="px-2 sm:px-4 hover:text-purple-500">Home</a>
+          </li>
+          <li class="font-medium mx-4 tracking-wide">
+            <a href="#" class="px-2 sm:px-4 hover:text-purple-500">About</a>
+          </li>
+          <li class="font-medium ml-4 tracking-wide">
+            <a href="{% url 'login' %}" class="px-2 sm:px-4 hover:text-purple-500">Account</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
 
-    {% endblock content %}
+  <hr />
 
-    <hr />
+  <!-- main section -->
+  {% block content %}
 
-    <!-- footer -->
-    <footer class="text-center text-gray-800 py-6">
-      <p class="tracking-wide">
-        zeta | &copy; 2020
-      </p>
-    </footer>
-  </body>
+  {% endblock content %}
+
+  <hr />
+
+  <!-- footer -->
+  <footer class="text-center text-gray-800 py-6">
+    <p class="tracking-wide">
+      zeta | &copy; 2020
+    </p>
+  </footer>
+</body>
+
 </html>

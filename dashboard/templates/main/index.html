@@ -3,35 +3,38 @@
 {% load tmdb %}
 
 {% block title %}
-  Dashboard
+Dashboard
 {% endblock title %}
 
 {% block content %}
-  <div class="w-5/6 mx-auto py-6">
-    <h3 class="uppercase font-bold text-sm mt-1">Dashboard</h3>
-    <div class="w-full text-right mb-4 mt-3">
-      <h3 class="text-xl font-bold tracking-wide">Total Collections: <span class="ml-4 font-black text-purple-600 text-2xl">{{col_count}}</span></h3>
-    </div>
-    <div class="grid grid-cols-3 gap-8 z-20">
-      <!-- iterate over collections -->
-      {% for collection in collections %}
-      <a href="" class="relative bg-purple-500 opacity-90 hover:opacity-100 h-48 p-4 rounded-lg">
-        <h3 class="text-gray-100 absolute w-full h-full uppercase font-bold text-lg">
-          {{collection.title}}
-        </h3>
-        <div class="mt-4 w-full h-full flex items-center justify-center">
-          <div class="w-full">
-            <div class="inline-flex justify-center text-center text-white py-2 px-2 rounded items-center my-1 w-full">
-              <h2 class="font-black text-4xl">{{collection.collections.count}}</h2><label class="text-lg font-light tracking-wide ml-4">Collections</label>
-            </div>
-            <hr>
-            <div class="inline-flex justify-center text-center text-white py-2 px-2 rounded items-center my-1 w-full">
-              <h2 class="font-black text-2xl">{{collection.collections|get_length}}</h2><label class="text-lg font-light tracking-wide ml-4">Total Items</label>
-            </div>
+<div class="w-5/6 mx-auto py-6">
+  <h3 class="uppercase font-bold text-sm mt-1">Dashboard</h3>
+  <div class="w-full text-right mb-4 mt-3">
+    <h3 class="text-xl font-bold tracking-wide">Total Collections: <span
+        class="ml-4 font-black text-purple-600 text-2xl">{{col_count}}</span></h3>
+  </div>
+  <div class="grid grid-cols-3 gap-8 z-20">
+    <!-- iterate over collections -->
+    {% for collection in collections %}
+    <a href="" class="relative bg-purple-500 opacity-90 hover:opacity-100 h-48 p-4 rounded-lg">
+      <h3 class="text-gray-100 absolute w-full h-full uppercase font-bold text-lg">
+        {{collection.title}}
+      </h3>
+      <div class="mt-4 w-full h-full flex items-center justify-center">
+        <div class="w-full">
+          <div class="inline-flex justify-center text-center text-white py-2 px-2 rounded items-center my-1 w-full">
+            <h2 class="font-black text-4xl">{{collection.collections.count}}</h2><label
+              class="text-lg font-light tracking-wide ml-4">Collections</label>
+          </div>
+          <hr>
+          <div class="inline-flex justify-center text-center text-white py-2 px-2 rounded items-center my-1 w-full">
+            <h2 class="font-black text-2xl">{{collection.collections|get_length}}</h2><label
+              class="text-lg font-light tracking-wide ml-4">Total Items</label>
           </div>
         </div>
-      </a>
-      {% endfor %}
-    </div>
+      </div>
+    </a>
+    {% endfor %}
   </div>
+</div>
 {% endblock content %}

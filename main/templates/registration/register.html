@@ -1,15 +1,15 @@
-{% extends 'main.html' %} 
+{% extends 'main.html' %}
 
-{% block title %} 
-Create New Account 
-{% endblock title%} 
+{% block title %}
+Create New Account
+{% endblock title%}
 
 {% block content %}
 <div class="py-24 w-5/6 sm:w-4/5 md:w-1/2 lg:w-2/5 xl:w-1/3 mx-auto">
     <!-- main register form -->
     <div class="w-full">
         <h4 class="text-center text-lg underline font-bold">
-        Create a new Account
+            Create a new Account
         </h4>
 
         {% if form.non_field_errors %}
@@ -17,15 +17,15 @@ Create New Account
             <p>{{form.non_field_errors}}</p>
         </div>
         {% endif %}
-        
+
         <form action="" method="POST" autocomplete="off" class="user-form">
             {% csrf_token %}
             <div class="flex flex-col py-1">
                 <label class="tracking-wide pt-1 font-light" for="uname">
-                {{form.username.label}}
+                    {{form.username.label}}
                 </label>
                 {{form.username}}
-                
+
                 {% if form.username.errors %}
                 <div class="py-1">
                     <ul class="text-sm text-red-600">
@@ -40,7 +40,7 @@ Create New Account
             </div>
             <div class="flex flex-col py-1">
                 <label class="tracking-wide pt-1 font-light" for="uname">
-                {{form.email.label}}
+                    {{form.email.label}}
                 </label>
                 {{form.email}}
 
@@ -58,7 +58,7 @@ Create New Account
             </div>
             <div class="flex flex-col py-1">
                 <label class="tracking-wide pt-1 font-light" for="passwd">
-                {{form.password1.label}}
+                    {{form.password1.label}}
                 </label>
                 {{form.password1}}
 
@@ -76,7 +76,7 @@ Create New Account
             </div>
             <div class="flex flex-col py-1">
                 <label class="tracking-wide pt-1 font-light" for="passwd">
-                Confirm Password
+                    Confirm Password
                 </label>
                 {{form.password2}}
 
@@ -96,8 +96,8 @@ Create New Account
                 <div class="flex items-center">
                     {{form.agree}}
                     <span class="pl-1 font-light text-sm tracking-wide truncate">
-                    I agree to the
-                    <a href="#" class="underline">Terms and Agreements</a>
+                        I agree to the
+                        <a href="#" class="underline">Terms and Agreements</a>
                     </span>
                 </div>
 
@@ -114,11 +114,8 @@ Create New Account
                 {% endif %}
             </div>
             <div class="flex justify-center py-2">
-                <input
-                type="submit"
-                value="Register"
-                class="py-2 px-10 text-sm uppercase tracking-wide font-bold bg-purple-500 hover:bg-purple-700 cursor-pointer text-white rounded"
-                />
+                <input type="submit" value="Register"
+                    class="py-2 px-10 text-sm uppercase tracking-wide font-bold bg-purple-500 hover:bg-purple-700 cursor-pointer text-white rounded" />
             </div>
         </form>
     </div>
@@ -128,14 +125,10 @@ Create New Account
     <!-- login account button -->
     <div class="flex items-center justify-center flex-col sm:flex-row">
         <h4 class="text-center font-light tracking-wide">
-        Already have an account?
+            Already have an account?
         </h4>
-        <a
-            href="{% url 'login' %}"
-            type="button"
-            class="pl-2 uppercase text-purple-700 hover:underline font-bold"
-            >
-        Login
+        <a href="{% url 'login' %}" type="button" class="pl-2 uppercase text-purple-700 hover:underline font-bold">
+            Login
         </a>
     </div>
 </div>

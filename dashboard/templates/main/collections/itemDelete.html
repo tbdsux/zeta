@@ -7,7 +7,11 @@
 {% block content %}
   <div class="flex justify-center">
     <div class="my-24 w-2/3 xl:w-1/2 p-6 shadow-lg border-2 border-red-200 bg-red-100 rounded">
-      <h4 class="font-light text-lg tracking-wide">Remove <strong class="font-bold text-purple-700">{{item.title}}</strong> from <strong class="underline font-extrabold tracking-wide">{{collection.name}}</strong></h4>
+      <h4 class="font-light text-lg tracking-wide">Remove
+        <strong class="font-bold text-purple-700">{{item.title}}</strong>
+        from
+        <strong class="underline font-extrabold tracking-wide">{{collection.name}}</strong>
+      </h4>
       <!-- warning message -->
       <div class="my-4 text-center flex items-center justify-center">
         <div class="w-1/3 bg-purple-600 rounded">
@@ -18,7 +22,8 @@
         </div>
         <div class="w-2/3">
           <h3 class="text-3xl text-purple-600 font-bold">Are you sure you want to delete this item from the collection?</h3>
-          <p class="text-sm font-light tracking-wide"><span class="text-red-600">*</span>This cannot be reversed.</p>
+          <p class="text-sm font-light tracking-wide">
+            <span class="text-red-600">*</span>This cannot be reversed.</p>
           <!-- buttons -->
           <div class="text-center flex justify-center mt-4">
             <a href="{% url 'collections-page' slug=collection.slug %}" class="py-2 px-6 text-lg mx-1 cursor-pointer border-2 rounded border-purple-600 hover:text-white hover:bg-purple-600">Cancel</a>
@@ -31,7 +36,7 @@
           </div>
         </div>
       </div>
-      
+
     </div>
   </div>
 {% endblock content %}

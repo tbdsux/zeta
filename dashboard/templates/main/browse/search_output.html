@@ -3,274 +3,341 @@
 {% load tmdb %}
 
 {% block title %}
-  Find item '{{query}}''
+Find item '{{query}}''
 {% endblock title %}
 
 {% block content %}
-  <div class="flex justify-center">
-    <div class="my-16 w-2/3 p-6">
-      <h3 class="text-center text-lg font-bold text-purple-600 mb-2">Browse Stuffs</h3>
-      <div class="flex items-center justify-between">
-        <h3 class="text-lg tracking-wide"><span class="font-light">Search for </span> <strong class="text-purple-600">'{{query}}'</strong> in <span class="underline">{{type}}</span></h3>
-        <a href="{% url 'browse' %}" type="button" class="py-2 px-6 text-sm tracking-wide rounded-full bg-gray-200 hover:bg-gray-300 cursor-pointer mx-1">Cancel</a>
-      </div>
-      <hr class="my-2">
-      <!-- search form -->
-      <div class="mb-2 flex items-center justify-center result-find-another">
-        <form action="" method="POST">
-          {% csrf_token %}
-          <div class="flex items-center justify-center">
-            <input type="hidden" name="action" value="browse-search">
-            {{form.query}}
-            {{form.type}}
-            <input type="submit" value="Find Item" class="border border-purple-600 py-2 px-3 lowercase text-sm cursor-pointer tracking-wide rounded bg-purple-600 text-white hover:bg-purple-700">
-          </div>
-        </form>
-      </div>
-      <!-- search results -->
-      {% if type == 'movie' %}
-      <!-- movie results -->
-      <div class="px-4 py-2">
-        <!-- api credits -->
-        <small class="tracking-wide mb-1"><span class="font-light">Results provided by: </span><a href="https://www.themoviedb.org/" class="underline text-blue-600 font-bold">TMDB</a></small>
-        <ul class="grid grid-cols-4 gap-4">
-          {% for result in results %}
-          <li>
-            <div class="bg-purple-600 rounded border-2 relative border-purple-500 group">
-              <div class="group-hover:flex items-center justify-center w-full h-full absolute hidden bg-bland">
-                <div class="text-center px-1">
-                  <h3 class="text-purple-100 font-light tracking-wide mb-1 h-24 overflow-auto">{{result.title}}</h3>
-                  <form action="" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="action" value="add-item">
-                    <input type="hidden" name="type" value="{{type}}">
-                    <input type="hidden" name="title" value="{{result.title}} {% if result.release_date %}({{result.release_date|get_year}}){% endif %}">
-                    {% if result.poster_path %}
-                    <input type="hidden" name="img" value="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.poster_path}}">
-                    {% elif result.backdrop_path %}
-                    <input type="hidden" name="img" value="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.backdrop_path}}">
-                    {% else %}
-                    <input type="hidden" name="img" value="None">
-                    {% endif %}
-                    <input type="submit" value="Add" class="text-sm lowercase px-4 py-1 bg-purple-700 hover:bg-purple-800 cursor-pointer text-white rounded">
-                  </form>
-                </div>
-              </div>
-              {% if result.poster_path %}
-                <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.poster_path}}" class="object-top rounded-t h-40 w-full object-cover" alt="">
-              {% elif result.backdrop_path %}
-                <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.backdrop_path}}" class="object-top rounded-t h-40 w-full object-cover" alt="">
-              {% else %}
-                <div class="h-40 flex items-center justify-center w-full bg-purple-500">
-                  <p class="text-xl font-bold tracking-wide text-white">NONE</p>
-                </div>
-              {% endif %}
-              <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.title}} {% if result.release_date %}({{result.release_date|get_year}}){% endif %}</p>
-            </div>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% elif type == 'series' %}
-      <!-- series results -->
-      <div class="px-4 py-2">
-        <!-- api credits -->
-        <small class="tracking-wide mb-1"><span class="font-light">Results provided by: </span><a href="https://www.themoviedb.org/" class="underline text-blue-600 font-bold">TMDB</a></small>
-        <ul class="grid grid-cols-4 gap-4 mt-2">
-          {% for result in results %}
-          <li>
-            <div class="bg-purple-600 rounded border-2 relative border-purple-500 group">
-              <div class="group-hover:flex items-center justify-center w-full h-full absolute hidden bg-bland">
-                <div class="text-center px-1">
-                  <h3 class="text-purple-100 font-light tracking-wide mb-1 h-24 overflow-auto">{{result.name}}</h3>
-                  <form action="" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="action" value="add-item">
-                    <input type="hidden" name="type" value="{{type}}">
-                    <input type="hidden" name="title" value="{{result.name}} {% if result.first_air_date %}({{result.first_air_date|get_year}}){% endif %}">
-                    {% if result.poster_path %}
-                    <input type="hidden" name="img" value="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.poster_path}}">
-                    {% elif result.backdrop_path %}
-                    <input type="hidden" name="img" value="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.backdrop_path}}">
-                    {% else %}
-                    <input type="hidden" name="img" value="None">
-                    {% endif %}
-                    <input type="submit" value="Add" class="text-sm lowercase px-4 py-1 bg-purple-700 hover:bg-purple-800 cursor-pointer text-white rounded">
-                  </form>
-                </div>
-              </div>
-              {% if result.poster_path %}
-                <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.poster_path}}" class="object-top rounded-t h-40 w-full object-cover" alt="">
-              {% elif result.backdrop_path %}
-                <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.backdrop_path}}" class="object-top rounded-t h-40 w-full object-cover" alt="">
-              {% else %}
-                <div class="h-40 flex items-center justify-center w-full bg-purple-500">
-                  <p class="text-xl font-bold tracking-wide text-white">NONE</p>
-                </div>
-              {% endif %}
-              <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.name}} {% if result.first_air_date %}({{result.first_air_date|get_year}}){% endif %}</p>
-            </div>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% elif type == 'anime'%}
-      <!-- anime results -->
-      <div class="px-4 py-2">
-        <!-- api credits -->
-        <small class="tracking-wide mb-1"><span class="font-light">Results provided by: </span><a href="https://myanimelist.net/" class="underline text-blue-600 font-bold">MyAnimeList</a> <a href="https://jikan.docs.apiary.io" class="text-blue-600">(Jikan API)</a></small>
-        <ul class="grid grid-cols-4 gap-4 mt-2">
-          {% for result in results %}
-          <li>
-            <div class="bg-purple-600 rounded border-2 relative border-purple-500 group">
-              <div class="group-hover:flex items-center justify-center w-full h-full absolute hidden bg-bland">
-                <div class="text-center px-1">
-                  <h3 class="text-purple-100 font-light tracking-wide mb-1 h-24 overflow-auto">{{result.title}}</h3>
-                  <form action="" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="action" value="add-item">
-                    <input type="hidden" name="type" value="{{type}}">
-                    <input type="hidden" name="title" value="{{result.title}} {% if result.start_date %}({{result.start_date|get_year}}){% endif %}">
-                    {% if result.image_url %}
-                    <input type="hidden" name="img" value="{{result.image_url}}">
-                    {% else %}
-                    <input type="hidden" name="img" value="None">
-                    {% endif %}
-                    <input type="submit" value="Add" class="text-sm lowercase px-4 py-1 bg-purple-700 hover:bg-purple-800 cursor-pointer text-white rounded">
-                  </form>
-                </div>
-              </div>
-              {% if result.image_url %}
-                <img src="{{result.image_url}}" class="object-top rounded-t h-40 w-full object-cover" alt="">
-              {% else %}
-                <div class="h-40 flex items-center justify-center w-full bg-purple-500">
-                  <p class="text-xl font-bold tracking-wide text-white">NONE</p>
-                </div>
-              {% endif %}
-              <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.title}} {% if result.start_date %}({{result.start_date|get_year}}){% endif %}</p>
-            </div>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% elif type == 'book' %}
-      <!-- book results -->
-      <div class="px-4 py-2">
-        <!-- api credits -->
-        <small class="tracking-wide mb-1"><span class="font-light">Results provided by: </span><a href="https://openlibrary.org/" class="underline text-blue-600 font-bold">OpenLibrary</a></small>
-        <ul class="grid grid-cols-4 gap-4 mt-2">
-          {% for result in results %}
-          <li>
-            <div class="bg-purple-600 rounded border-2 relative border-purple-500 group">
-              <div class="group-hover:flex items-center justify-center w-full h-full absolute hidden bg-bland">
-                <div class="text-center px-1">
-                  <h3 class="text-purple-100 font-light tracking-wide mb-1 h-24 overflow-auto">{{result.title}} <br><small>{{result.author_name}}</small></h3>
-                  <form action="" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="action" value="add-item">
-                    <input type="hidden" name="type" value="{{type}}">
-                    <input type="hidden" name="title" value="{{result.title}} {{result.author_name}}">
-                    {% if result.cover_i %}
-                    <input type="hidden" name="img" value="https://covers.openlibrary.org/b/id/{{result.cover_i}}-L.jpg">
-                    {% else %}
-                    <input type="hidden" name="img" value="None">
-                    {% endif %}
-                    <input type="submit" value="Add" class="text-sm lowercase px-4 py-1 bg-purple-700 hover:bg-purple-800 cursor-pointer text-white rounded">
-                  </form>
-                </div>
-              </div>
-              {% if result.cover_i %}
-                <img src="https://covers.openlibrary.org/b/id/{{result.cover_i}}-L.jpg" class="object-top rounded-t h-40 w-full object-cover" alt="">
-              {% else %}
-                <div class="h-40 flex items-center justify-center w-full bg-purple-500">
-                  <p class="text-xl font-bold tracking-wide text-white">NONE</p>
-                </div>
-              {% endif %}
-              <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.title}}</p>
-            </div>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% elif type == 'manga' %}
-      <!-- manga results -->
-      <div class="px-4 py-2">
-        <!-- api credits -->
-        <small class="tracking-wide mb-1"><span class="font-light">Results provided by: </span><a href="https://myanimelist.net/" class="underline text-blue-600 font-bold">MyAnimeList</a> <a href="https://jikan.docs.apiary.io" class="text-blue-600">(Jikan API)</a></small>
-        <ul class="grid grid-cols-4 gap-4 mt-2">
-          {% for result in results %}
-          <li>
-            <div class="bg-purple-600 rounded border-2 relative border-purple-500 group">
-              <div class="group-hover:flex items-center justify-center w-full h-full absolute hidden bg-bland">
-                <div class="text-center px-1">
-                  <h3 class="text-purple-100 font-light tracking-wide mb-1 h-24 overflow-auto">{{result.title}}</h3>
-                  <form action="" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="action" value="add-item">
-                    <input type="hidden" name="type" value="{{type}}">
-                    <input type="hidden" name="title" value="{{result.title}} {% if result.start_date %}({{result.start_date|get_year}}){% endif %}">
-                    {% if result.image_url %}
-                    <input type="hidden" name="img" value="{{result.image_url}}">
-                    {% else %}
-                    <input type="hidden" name="img" value="None">
-                    {% endif %}
-                    <input type="submit" value="Add" class="text-sm lowercase px-4 py-1 bg-purple-700 hover:bg-purple-800 cursor-pointer text-white rounded">
-                  </form>
-                </div>
-              </div>
-              {% if result.image_url %}
-                <img src="{{result.image_url}}" class="object-top rounded-t h-40 w-full object-cover" alt="">
-              {% else %}
-                <div class="h-40 flex items-center justify-center w-full bg-purple-500">
-                  <p class="text-xl font-bold tracking-wide text-white">NONE</p>
-                </div>
-              {% endif %}
-              <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.title}} {% if result.start_date %}({{result.start_date|get_year}}){% endif %}</p>
-            </div>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% elif type == 'asian drama' %}
-      <!-- asian drama results -->
-      <div class="px-4 py-2">
-        <!-- api credits -->
-        <small class="tracking-wide mb-1"><span class="font-light">Results provided by: </span><a href="https://mydramalist.com/" class="underline text-blue-600 font-bold">MyDramaList</a> <a href="https://kuryana.vercel.app" class="text-blue-600">(Kuryana API)</a></small>
-        <ul class="grid grid-cols-4 gap-4 mt-2">
-          {% for result in results %}
-          <li>
-            <div class="bg-purple-600 rounded border-2 relative border-purple-500 group">
-              <div class="group-hover:flex items-center justify-center w-full h-full absolute hidden bg-bland">
-                <div class="text-center px-1">
-                  <h3 class="text-purple-100 font-light tracking-wide mb-1 h-24 overflow-auto">{{result.title}}</h3>
-                  <form action="" method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="action" value="add-item">
-                    <input type="hidden" name="type" value="{{type}}">
-                    <input type="hidden" name="title" value="{{result.title}} {% if result.year %}({{result.year}}){% endif %}">
-                    {% if result.thumb %}
-                    <input type="hidden" name="img" value="{{result.thumb|mdl_img}}">
-                    {% else %}
-                    <input type="hidden" name="img" value="None">
-                    {% endif %}
-                    <input type="submit" value="Add" class="text-sm lowercase px-4 py-1 bg-purple-700 hover:bg-purple-800 cursor-pointer text-white rounded">
-                  </form>
-                </div>
-              </div>
-              {% if result.thumb %}
-                <img src="{{result.thumb|mdl_img}}" class="object-top rounded-t h-40 w-full object-cover" alt="">
-              {% else %}
-                <div class="h-40 flex items-center justify-center w-full bg-purple-500">
-                  <p class="text-xl font-bold tracking-wide text-white">NONE</p>
-                </div>
-              {% endif %}
-              <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.title}} {% if result.year %}({{result.year}}){% endif %}</p>
-            </div>
-          </li>
-          {% endfor %}
-        </ul>
-      </div>
-      {% endif %}
+<div class="flex justify-center">
+  <div class="my-16 w-2/3 p-6">
+    <h3 class="text-center text-lg font-bold text-purple-600 mb-2">Browse Stuffs</h3>
+    <div class="flex items-center justify-between">
+      <h3 class="text-lg tracking-wide">
+        <span class="font-light">Search for
+        </span>
+        <strong class="text-purple-600">'{{query}}'</strong>
+        in
+        <span class="underline">{{type}}</span></h3>
+      <a href="{% url 'browse' %}" type="button"
+        class="py-2 px-6 text-sm tracking-wide rounded-full bg-gray-200 hover:bg-gray-300 cursor-pointer mx-1">Cancel</a>
     </div>
+    <hr class="my-2">
+    <!-- search form -->
+    <div class="mb-2 flex items-center justify-center result-find-another">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="flex items-center justify-center">
+          <input type="hidden" name="action" value="browse-search">
+          {{form.query}}
+          {{form.type}}
+          <input type="submit" value="Find Item"
+            class="border border-purple-600 py-2 px-3 lowercase text-sm cursor-pointer tracking-wide rounded bg-purple-600 text-white hover:bg-purple-700">
+        </div>
+      </form>
+    </div>
+    <!-- search results -->
+    {% if type == 'movie' %}
+    <!-- movie results -->
+    <div class="px-4 py-2">
+      <!-- api credits -->
+      <small class="tracking-wide mb-1">
+        <span class="font-light">Results provided by:
+        </span>
+        <a href="https://www.themoviedb.org/" class="underline text-blue-600 font-bold">TMDB</a>
+      </small>
+      <ul class="grid grid-cols-4 gap-4">
+        {% for result in results %}
+        <li>
+          <div class="bg-purple-600 rounded border-2 relative border-purple-500 group">
+            <div class="group-hover:flex items-center justify-center w-full h-full absolute hidden bg-bland">
+              <div class="text-center px-1">
+                <h3 class="text-purple-100 font-light tracking-wide mb-1 h-24 overflow-auto">{{result.title}}</h3>
+                <form action="" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="action" value="add-item">
+                  <input type="hidden" name="type" value="{{type}}">
+                  <input type="hidden" name="title"
+                    value="{{result.title}} {% if result.release_date %}({{result.release_date|get_year}}){% endif %}">
+                  {% if result.poster_path %}
+                  <input type="hidden" name="img"
+                    value="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.poster_path}}">
+                  {% elif result.backdrop_path %}
+                  <input type="hidden" name="img"
+                    value="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.backdrop_path}}">
+                  {% else %}
+                  <input type="hidden" name="img" value="None">
+                  {% endif %}
+                  <input type="submit" value="Add"
+                    class="text-sm lowercase px-4 py-1 bg-purple-700 hover:bg-purple-800 cursor-pointer text-white rounded">
+                </form>
+              </div>
+            </div>
+            {% if result.poster_path %}
+            <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.poster_path}}"
+              class="object-top rounded-t h-40 w-full object-cover" alt="">
+            {% elif result.backdrop_path %}
+            <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.backdrop_path}}"
+              class="object-top rounded-t h-40 w-full object-cover" alt="">
+            {% else %}
+            <div class="h-40 flex items-center justify-center w-full bg-purple-500">
+              <p class="text-xl font-bold tracking-wide text-white">NONE</p>
+            </div>
+            {% endif %}
+            <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.title}}
+              {% if result.release_date %}({{result.release_date|get_year}}){% endif %}
+            </p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% elif type == 'series' %}
+    <!-- series results -->
+    <div class="px-4 py-2">
+      <!-- api credits -->
+      <small class="tracking-wide mb-1">
+        <span class="font-light">Results provided by:
+        </span>
+        <a href="https://www.themoviedb.org/" class="underline text-blue-600 font-bold">TMDB</a>
+      </small>
+      <ul class="grid grid-cols-4 gap-4 mt-2">
+        {% for result in results %}
+        <li>
+          <div class="bg-purple-600 rounded border-2 relative border-purple-500 group">
+            <div class="group-hover:flex items-center justify-center w-full h-full absolute hidden bg-bland">
+              <div class="text-center px-1">
+                <h3 class="text-purple-100 font-light tracking-wide mb-1 h-24 overflow-auto">{{result.name}}</h3>
+                <form action="" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="action" value="add-item">
+                  <input type="hidden" name="type" value="{{type}}">
+                  <input type="hidden" name="title"
+                    value="{{result.name}} {% if result.first_air_date %}({{result.first_air_date|get_year}}){% endif %}">
+                  {% if result.poster_path %}
+                  <input type="hidden" name="img"
+                    value="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.poster_path}}">
+                  {% elif result.backdrop_path %}
+                  <input type="hidden" name="img"
+                    value="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.backdrop_path}}">
+                  {% else %}
+                  <input type="hidden" name="img" value="None">
+                  {% endif %}
+                  <input type="submit" value="Add"
+                    class="text-sm lowercase px-4 py-1 bg-purple-700 hover:bg-purple-800 cursor-pointer text-white rounded">
+                </form>
+              </div>
+            </div>
+            {% if result.poster_path %}
+            <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.poster_path}}"
+              class="object-top rounded-t h-40 w-full object-cover" alt="">
+            {% elif result.backdrop_path %}
+            <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/{{result.backdrop_path}}"
+              class="object-top rounded-t h-40 w-full object-cover" alt="">
+            {% else %}
+            <div class="h-40 flex items-center justify-center w-full bg-purple-500">
+              <p class="text-xl font-bold tracking-wide text-white">NONE</p>
+            </div>
+            {% endif %}
+            <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.name}}
+              {% if result.first_air_date %}({{result.first_air_date|get_year}}){% endif %}
+            </p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% elif type == 'anime'%}
+    <!-- anime results -->
+    <div class="px-4 py-2">
+      <!-- api credits -->
+      <small class="tracking-wide mb-1">
+        <span class="font-light">Results provided by:
+        </span>
+        <a href="https://myanimelist.net/" class="underline text-blue-600 font-bold">MyAnimeList</a>
+        <a href="https://jikan.docs.apiary.io" class="text-blue-600">(Jikan API)</a>
+      </small>
+      <ul class="grid grid-cols-4 gap-4 mt-2">
+        {% for result in results %}
+        <li>
+          <div class="bg-purple-600 rounded border-2 relative border-purple-500 group">
+            <div class="group-hover:flex items-center justify-center w-full h-full absolute hidden bg-bland">
+              <div class="text-center px-1">
+                <h3 class="text-purple-100 font-light tracking-wide mb-1 h-24 overflow-auto">{{result.title}}</h3>
+                <form action="" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="action" value="add-item">
+                  <input type="hidden" name="type" value="{{type}}">
+                  <input type="hidden" name="title"
+                    value="{{result.title}} {% if result.start_date %}({{result.start_date|get_year}}){% endif %}">
+                  {% if result.image_url %}
+                  <input type="hidden" name="img" value="{{result.image_url}}">
+                  {% else %}
+                  <input type="hidden" name="img" value="None">
+                  {% endif %}
+                  <input type="submit" value="Add"
+                    class="text-sm lowercase px-4 py-1 bg-purple-700 hover:bg-purple-800 cursor-pointer text-white rounded">
+                </form>
+              </div>
+            </div>
+            {% if result.image_url %}
+            <img src="{{result.image_url}}" class="object-top rounded-t h-40 w-full object-cover" alt="">
+            {% else %}
+            <div class="h-40 flex items-center justify-center w-full bg-purple-500">
+              <p class="text-xl font-bold tracking-wide text-white">NONE</p>
+            </div>
+            {% endif %}
+            <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.title}}
+              {% if result.start_date %}({{result.start_date|get_year}}){% endif %}
+            </p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% elif type == 'book' %}
+    <!-- book results -->
+    <div class="px-4 py-2">
+      <!-- api credits -->
+      <small class="tracking-wide mb-1">
+        <span class="font-light">Results provided by:
+        </span>
+        <a href="https://openlibrary.org/" class="underline text-blue-600 font-bold">OpenLibrary</a>
+      </small>
+      <ul class="grid grid-cols-4 gap-4 mt-2">
+        {% for result in results %}
+        <li>
+          <div class="bg-purple-600 rounded border-2 relative border-purple-500 group">
+            <div class="group-hover:flex items-center justify-center w-full h-full absolute hidden bg-bland">
+              <div class="text-center px-1">
+                <h3 class="text-purple-100 font-light tracking-wide mb-1 h-24 overflow-auto">{{result.title}}
+                  <br>
+                  <small>{{result.author_name}}</small>
+                </h3>
+                <form action="" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="action" value="add-item">
+                  <input type="hidden" name="type" value="{{type}}">
+                  <input type="hidden" name="title" value="{{result.title}} {{result.author_name}}">
+                  {% if result.cover_i %}
+                  <input type="hidden" name="img" value="https://covers.openlibrary.org/b/id/{{result.cover_i}}-L.jpg">
+                  {% else %}
+                  <input type="hidden" name="img" value="None">
+                  {% endif %}
+                  <input type="submit" value="Add"
+                    class="text-sm lowercase px-4 py-1 bg-purple-700 hover:bg-purple-800 cursor-pointer text-white rounded">
+                </form>
+              </div>
+            </div>
+            {% if result.cover_i %}
+            <img src="https://covers.openlibrary.org/b/id/{{result.cover_i}}-L.jpg"
+              class="object-top rounded-t h-40 w-full object-cover" alt="">
+            {% else %}
+            <div class="h-40 flex items-center justify-center w-full bg-purple-500">
+              <p class="text-xl font-bold tracking-wide text-white">NONE</p>
+            </div>
+            {% endif %}
+            <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.title}}</p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% elif type == 'manga' %}
+    <!-- manga results -->
+    <div class="px-4 py-2">
+      <!-- api credits -->
+      <small class="tracking-wide mb-1">
+        <span class="font-light">Results provided by:
+        </span>
+        <a href="https://myanimelist.net/" class="underline text-blue-600 font-bold">MyAnimeList</a>
+        <a href="https://jikan.docs.apiary.io" class="text-blue-600">(Jikan API)</a>
+      </small>
+      <ul class="grid grid-cols-4 gap-4 mt-2">
+        {% for result in results %}
+        <li>
+          <div class="bg-purple-600 rounded border-2 relative border-purple-500 group">
+            <div class="group-hover:flex items-center justify-center w-full h-full absolute hidden bg-bland">
+              <div class="text-center px-1">
+                <h3 class="text-purple-100 font-light tracking-wide mb-1 h-24 overflow-auto">{{result.title}}</h3>
+                <form action="" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="action" value="add-item">
+                  <input type="hidden" name="type" value="{{type}}">
+                  <input type="hidden" name="title"
+                    value="{{result.title}} {% if result.start_date %}({{result.start_date|get_year}}){% endif %}">
+                  {% if result.image_url %}
+                  <input type="hidden" name="img" value="{{result.image_url}}">
+                  {% else %}
+                  <input type="hidden" name="img" value="None">
+                  {% endif %}
+                  <input type="submit" value="Add"
+                    class="text-sm lowercase px-4 py-1 bg-purple-700 hover:bg-purple-800 cursor-pointer text-white rounded">
+                </form>
+              </div>
+            </div>
+            {% if result.image_url %}
+            <img src="{{result.image_url}}" class="object-top rounded-t h-40 w-full object-cover" alt="">
+            {% else %}
+            <div class="h-40 flex items-center justify-center w-full bg-purple-500">
+              <p class="text-xl font-bold tracking-wide text-white">NONE</p>
+            </div>
+            {% endif %}
+            <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.title}}
+              {% if result.start_date %}({{result.start_date|get_year}}){% endif %}
+            </p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% elif type == 'asian drama' %}
+    <!-- asian drama results -->
+    <div class="px-4 py-2">
+      <!-- api credits -->
+      <small class="tracking-wide mb-1">
+        <span class="font-light">Results provided by:
+        </span>
+        <a href="https://mydramalist.com/" class="underline text-blue-600 font-bold">MyDramaList</a>
+        <a href="https://kuryana.vercel.app" class="text-blue-600">(Kuryana API)</a>
+      </small>
+      <ul class="grid grid-cols-4 gap-4 mt-2">
+        {% for result in results %}
+        <li>
+          <div class="bg-purple-600 rounded border-2 relative border-purple-500 group">
+            <div class="group-hover:flex items-center justify-center w-full h-full absolute hidden bg-bland">
+              <div class="text-center px-1">
+                <h3 class="text-purple-100 font-light tracking-wide mb-1 h-24 overflow-auto">{{result.title}}</h3>
+                <form action="" method="POST">
+                  {% csrf_token %}
+                  <input type="hidden" name="action" value="add-item">
+                  <input type="hidden" name="type" value="{{type}}">
+                  <input type="hidden" name="title"
+                    value="{{result.title}} {% if result.year %}({{result.year}}){% endif %}">
+                  {% if result.thumb %}
+                  <input type="hidden" name="img" value="{{result.thumb|mdl_img}}">
+                  {% else %}
+                  <input type="hidden" name="img" value="None">
+                  {% endif %}
+                  <input type="submit" value="Add"
+                    class="text-sm lowercase px-4 py-1 bg-purple-700 hover:bg-purple-800 cursor-pointer text-white rounded">
+                </form>
+              </div>
+            </div>
+            {% if result.thumb %}
+            <img src="{{result.thumb|mdl_img}}" class="object-top rounded-t h-40 w-full object-cover" alt="">
+            {% else %}
+            <div class="h-40 flex items-center justify-center w-full bg-purple-500">
+              <p class="text-xl font-bold tracking-wide text-white">NONE</p>
+            </div>
+            {% endif %}
+            <p class="text-white tracking-wide truncate text-sm text-center py-2 px-3">{{result.title}}
+              {% if result.year %}({{result.year}}){% endif %}
+            </p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
   </div>
+</div>
 {% endblock content %}
