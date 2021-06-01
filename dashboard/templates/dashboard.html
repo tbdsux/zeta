@@ -64,20 +64,20 @@
       </div>
 
       <!-- main nav -->
-      <ul class="flex font-medium text-gray-700">
+      <ul class="flex text-gray-700">
         <li>
-          <a href="{% url 'dash' %}" class="py-2 px-8 hover:bg-purple-500 hover:text-white rounded-md tracking-wider">
+          <a href="{% url 'dash' %}" class="py-1 px-8 hover:bg-purple-500 hover:text-white rounded-md tracking-wider">
             Dashboard
           </a>
         </li>
         <li>
           <a href="{% url 'collections' %}"
-            class="py-2 px-8 hover:bg-purple-500 hover:text-white rounded-md tracking-wider">
+            class="py-1 px-8 hover:bg-purple-500 hover:text-white rounded-md tracking-wider">
             Collections
           </a>
         </li>
         <li>
-          <a href="{% url 'browse' %}" class="py-2 px-8 hover:bg-purple-500 hover:text-white rounded-md tracking-wider">
+          <a href="{% url 'browse' %}" class="py-1 px-8 hover:bg-purple-500 hover:text-white rounded-md tracking-wider">
             Browse
           </a>
         </li>
@@ -87,7 +87,7 @@
         <div class="inline-flex items-center">
           <button @click="open = true" :class="{'bg-purple-600':open}" type="button"
             class="z-40 hover:bg-purple-500 text-gray-700 tracking-wide focus:text-white hover:text-white hover:underline inline-flex items-center px-4 border border-purple-600 rounded py-1">
-            <img src="{% static 'profiles/profile.png' %}" alt="" class="w-8 h-8" />
+            <img src="{% static 'profiles/profile.png' %}" alt="" class="w-6 h-6" />
             <span class="ml-2 mr-1">{{user.username}}</span>
             <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
               <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />

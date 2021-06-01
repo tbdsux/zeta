@@ -37,7 +37,7 @@
 	@apply p-2 rounded;
 }
 .add-collection select {
-	@apply text-center py-2 rounded px-4 border-2 bg-gray-300;
+	@apply text-center py-2 rounded px-4 border-2;
 }
 .add-collection select:focus {
 	@apply outline-none border-purple-600;
@@ -50,7 +50,7 @@
 	@apply border-purple-600 text-purple-600 outline-none;
 }
 .browse-input select {
-	@apply text-center py-2 rounded px-4 border-2 bg-gray-300;
+	@apply text-center py-2 rounded px-4 border-2;
 }
 .browse-input select:focus {
 	@apply outline-none border-purple-600;
@@ -71,7 +71,7 @@
 }
 
 .collections-group {
-	@apply mt-4 grid gap-2 grid-flow-row;
+	@apply mt-4 grid gap-4 grid-flow-row;
 }
 
 .update-form input {
