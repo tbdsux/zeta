@@ -1,6 +1,6 @@
+from dashboard.models.collections import Collections
 from django import forms
 from django.forms import widgets
-from dashboard.models.collections import Collections
 
 
 class AddCollectionForm(forms.ModelForm):

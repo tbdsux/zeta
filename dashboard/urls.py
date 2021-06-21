@@ -1,16 +1,16 @@
 from django.urls import path
 
 from .views import others as views
+from .views.account import Account_Settings, ChangePasswordView
+from .views.browse import BrowseAddResultCol, BrowseResultsView, BrowseView
 from .views.collections import (
-    CollectionsView,
-    CollectionsPageView,
-    CollectionsUpdateView,
     CollectionsDeleteView,
     CollectionsFindItemView,
+    CollectionsPageView,
     CollectionsRemoveItemView,
+    CollectionsUpdateView,
+    CollectionsView,
 )
-from .views.browse import BrowseView, BrowseResultsView, BrowseAddResultCol
-from .views.account import ChangePasswordView, Account_Settings
 from .views.index import IndexDashboardView
 
 urlpatterns = [

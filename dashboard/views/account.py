@@ -1,24 +1,23 @@
-from django.urls.base import reverse
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.views import View
-from django.contrib import messages
-from django.contrib.auth.models import User
-from django.urls import reverse_lazy, reverse
-from django.contrib.auth.views import PasswordChangeView
-from django.contrib.messages.views import SuccessMessageMixin
-
 # import custom update forms
 from dashboard.forms.account import (
-    UpdateUserInfoUsername,
-    UpdateUserInfoEmail,
     UpdatePasswordForm,
+    UpdateUserInfoEmail,
+    UpdateUserInfoUsername,
 )
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.views import PasswordChangeView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 
-## Dashboard > Change Personal Info View
+
 @login_required()
 def Account_Settings(request):
+    """
+    Dashboard > Change Personal Info View
+    """
     # intialize forms
     uname_form = UpdateUserInfoUsername(
         request.user,
@@ -65,9 +64,12 @@ def Account_Settings(request):
     )
 
 
-## Dashboard > Change Password View
 @method_decorator(login_required, name="dispatch")
 class ChangePasswordView(SuccessMessageMixin, PasswordChangeView):
+    """
+    Dashboard > Change Password View
+    """
+
     form_class = UpdatePasswordForm
     template_name = "main/change_password.html"
     success_url = reverse_lazy("account-password")

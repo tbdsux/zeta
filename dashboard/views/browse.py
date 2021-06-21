@@ -1,25 +1,28 @@
-from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.views import View
-from django.contrib import messages
-
-from dashboard.models.collections import Collections, Stuff, Inclution
 import uuid
 from urllib.parse import quote, unquote  # for url encoding and decoding
 
 from dashboard.forms.browse import BrowseForm
-from dashboard.utils.browse.movies import Movies
-from dashboard.utils.browse.series import Series
+from dashboard.models.collections import Collections, Inclution, Stuff
 from dashboard.utils.browse.anime import Anime
+from dashboard.utils.browse.asian_drama import AsianDrama
 from dashboard.utils.browse.book import Book
 from dashboard.utils.browse.manga import Manga
-from dashboard.utils.browse.asian_drama import AsianDrama
+from dashboard.utils.browse.movies import Movies
+from dashboard.utils.browse.series import Series
 from dashboard.utils.hasher import Hasher
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect, render
+from django.utils.decorators import method_decorator
+from django.views import View
 
-## Dashboard > Browse View
+
 @method_decorator(login_required, name="dispatch")
 class BrowseView(View):
+    """
+    Dashboard > Browse View
+    """
+
     form_class = BrowseForm
     template_name = "main/browse/browse.html"
 
@@ -40,9 +43,12 @@ class BrowseView(View):
         return render(request, self.template_name, {"form": form})
 
 
-## Dashboard > Browse > Query results View
 @method_decorator(login_required, name="dispatch")
 class BrowseResultsView(View):
+    """
+    Dashboard > Browse > Query results View
+    """
+
     form_class = BrowseForm
     template_name = "main/browse/search_output.html"
 
@@ -115,9 +121,12 @@ class BrowseResultsView(View):
         return redirect(request.path_info)
 
 
-## Dashboard > Browse > Add item to collection
 @method_decorator(login_required, name="dispatch")
 class BrowseAddResultCol(View):
+    """
+    Dashboard > Browse > Add item to collection
+    """
+
     template_name = "main/browse/select-collection.html"
 
     def get(self, request, type, hash, *args, **kwargs):

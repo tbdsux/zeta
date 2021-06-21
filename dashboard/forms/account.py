@@ -1,8 +1,7 @@
 from django import forms
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.forms import fields
-from django.contrib.auth.forms import PasswordChangeForm
 
 
 # Custom User Info Update Form (Username)

@@ -1,13 +1,16 @@
-from django.utils.decorators import method_decorator
+from dashboard.models.collections import Collections
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.views import View
 
-from dashboard.models.collections import Collections, Stuff
 
-## Dashboard > Index (Main) View
 @method_decorator(login_required, name="dispatch")
 class IndexDashboardView(View):
+    """
+    Dashboard > Index (Main) View
+    """
+
     template_name = "main/index.html"
 
     def get(self, request, *args, **kwargs):

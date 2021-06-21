@@ -10,3 +10,6 @@ migrations
 db.sqlite3
 assets/css/style.css
 yarn.lock
+
+
+*_cache

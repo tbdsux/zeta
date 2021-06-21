@@ -1,7 +1,9 @@
-from django.db import models
-from django.contrib.auth.models import User
-from nanoid import generate
 import uuid
+
+from django.contrib.auth.models import User
+from django.db import models
+from nanoid import generate
+
 
 # Stuffs model
 class Stuff(models.Model):
