@@ -16,39 +16,7 @@
   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.1/dist/alpine.min.js" defer></script>
 </head>
 
-<body class="antialiased w-full h-full" x-data="{ profile: false, open: false, add_col: false, add_item: false }">
-
-  <!-- user profile modal -->
-  <div class="fixed bg-bland h-screen w-full z-50 flex items-center justify-center" x-show="profile">
-    <div class="h-64 bg-white md:w-2/3 lg:w-1/2 mx-auto rounded p-4 relative" @click.away="profile=false">
-      <p class="font-light absolute top-0 left-0 mt-2 ml-2 opacity-75">User Profile | zeta</p>
-      <div class="absolute top-0 right-0 mt-2 mr-2 inline-flex items-center">
-        <div class="w-4 h-4 bg-green-500 rounded-full"></div>
-        <p class="font-light ml-1 text-green-500">active</p>
-      </div>
-      <div class="flex items-center justify-center px-4 h-full">
-        <!-- user image -->
-        <div class="relative h-32 w-32">
-          <img src="{% static 'profiles/{{user.userprofile.acc_img}}' %}" alt=""
-            class="absolute object-cover rounded-full w-full h-full">
-        </div>
-        <!-- user info -->
-        <div class="ml-4">
-          <h1 class="text-3xl font-black text-purple-600 tracking-wide">{{user.username}}</h1>
-          <ul class="">
-            <li class="my-1">
-              <h4 class="text-lg tracking-wide text-gray-600">Total Collections</h4>
-              <p class="font-black text-lg ml-3 text-gray-800">12</p>
-            </li>
-            <li class="my-1">
-              <h4 class="text-lg tracking-wide text-gray-600">Date Joined</h4>
-              <p class="font-black text-lg ml-3 text-gray-800">{{user.date_joined}}</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
+<body class="antialiased w-full h-full" x-data="{ open: false, add_col: false, add_item: false }">
 
   {% block modal %}
   <!-- modals container from sub_templates -->
@@ -97,10 +65,7 @@
         <ul x-show="open" @click.away="open=false"
           class="absolute bg-purple-700 w-full mt-1 py-3 rounded text-center z-40 text-white">
           <li class="py-1">
-            <button @click="profile=true" class="opacity-75 hover:opacity-100">Profile</button>
-          </li>
-          <li class="py-1">
-            <a href="{% url 'account' %}" class="opacity-75 hover:opacity-100">Account</a>
+            <a href="{% url 'account' %}" class="opacity-75 hover:opacity-100">Profile</a>
           </li>
           <li class="py-1">
             <a href="{% url 'account-password' %}" class="opacity-75 hover:opacity-100">Password</a>

@@ -16,7 +16,7 @@
     "editor.wordBasedSuggestions": false,
     "editor.defaultFormatter": "ms-python.python"
   },
-  "python.formatting.blackPath": "/usr/bin/black",
+  "python.formatting.blackPath": "venv/bin/black",
   "python.pythonPath": "venv/bin/python",
   "editor.quickSuggestions": {
     "other": true,

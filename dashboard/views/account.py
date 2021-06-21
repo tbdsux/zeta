@@ -40,7 +40,7 @@ def Account_Settings(request):
                 uname_form.save()
 
                 messages.success(
-                    request, f"You have successfully updated your username!"
+                    request, "You have successfully updated your username!"
                 )
 
                 return redirect("account")
@@ -53,14 +53,14 @@ def Account_Settings(request):
                 email_form.save()
 
                 messages.success(
-                    request, f"You have successfully updated your email address!"
+                    request, "You have successfully updated your email address!"
                 )
 
                 return redirect("account")
 
     return render(
         request,
-        "main/settings.html",
+        "main/profile.html",
         {"uname_form": uname_form, "email_form": email_form},
     )
 
